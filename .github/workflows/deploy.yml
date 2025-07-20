@@ -19,16 +19,19 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
+          cache: yarn
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
-      - name: Build the project
+      - name: Build project
         run: yarn build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages
-          folder: dist
+          branch: gh-pages          # Deployment branch
+          folder: dist              # Build output directory
           clean: true
+          clean-exclude: |
+            CNAME                   

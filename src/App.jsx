@@ -40,7 +40,7 @@ function App() {
         <p className="text-lg text-gray-400">
           Cybersecurity Analyst | Backend Developer | Computer Engineer
         </p>
-        <p>
+        <p className="text-lg text-gray-400">
           Welcome to my portfolio! Explore my experiences, projects, and resume.
           <br />
           Click the buttons below to navigate.

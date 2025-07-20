@@ -27,14 +27,12 @@ jobs:
       - name: Build project
         run: yarn build
 
-      - name: Create CNAME (if needed)
-        run: echo "www.cryp71c.dev" > dist/CNAME
+      - name: Copy CNAME file (required for custom domain)
+        run: echo "cryp71c.dev" > dist/CNAME
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
           publish_branch: gh-pages
-          clean: true
-          cname: www.cryp71c.dev
+          publish_dir: ./dist

@@ -24,8 +24,11 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Build project
-        run: yarn build
+      - name: Build the project
+        run: |
+            echo "VITE_API_URL=${{ vars.VITE_API_URL }}" >> .env
+            yarn build
+
 
       - name: Copy CNAME file (required for custom domain)
         run: echo "cryp71c.dev" > dist/CNAME

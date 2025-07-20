@@ -8,6 +8,7 @@ function ExperienceList() {
   const [selectedCompany, setSelectedCompany] = useState(null);
   const API_URL = import.meta.env.VITE_API_URL;
 
+
   useEffect(() => {
     const sort = searchParams.get("sort") || "desc";
     setSortMode(sort);

@@ -7,6 +7,7 @@ import Projects from "./components/Projects.jsx";
 import Resume from "./components/Resume.jsx";
 import "./index.css";
 
+console.log("React loaded"); // 🔍 does this appear in DevTools?
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <HashRouter>
@@ -19,3 +20,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </HashRouter>
   </React.StrictMode>
 );
+

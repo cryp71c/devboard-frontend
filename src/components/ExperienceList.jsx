@@ -49,7 +49,7 @@ function ExperienceList() {
     setLoading(true);
     setError(null);
 
-    fetch(`${API_URL}/experience/all?sort=${sort}`)
+    fetch(`https://${API_URL}/experience/all?sort=${sort}`)
       .then((res) => {
         if (!res.ok) throw new Error(`API error: ${res.status}`);
         return res.json();

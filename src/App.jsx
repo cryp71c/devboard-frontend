@@ -48,7 +48,7 @@ function App() {
           This site is currently under construction, but feel free to explore!
         </p>
 
-        <div className="flex justify-center space-x-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
           <button
             onClick={() => handleClick("/experiences")}
             className="bg-indigo-600 px-5 py-2 rounded text-white hover:bg-indigo-700 transition"
@@ -60,6 +60,36 @@ function App() {
             className="bg-indigo-600 px-5 py-2 rounded text-white hover:bg-indigo-700 transition"
           >
             Projects
+          </button>
+          <button
+            onClick={() => handleClick("/blog")}
+            className="bg-indigo-600 px-5 py-2 rounded text-white hover:bg-indigo-700 transition"
+          >
+            Blog
+          </button>
+          <button
+            onClick={() => handleClick("/htb")}
+            className="bg-indigo-600 px-5 py-2 rounded text-white hover:bg-indigo-700 transition"
+          >
+            Security Lab
+          </button>
+          <button
+            onClick={() => handleClick("/current-projects")}
+            className="bg-indigo-600 px-5 py-2 rounded text-white hover:bg-indigo-700 transition"
+          >
+            Current Projects
+          </button>
+          <button
+            onClick={() => handleClick("/certifications")}
+            className="bg-indigo-600 px-5 py-2 rounded text-white hover:bg-indigo-700 transition"
+          >
+            Certifications
+          </button>
+          <button
+            onClick={() => handleClick("/contact")}
+            className="bg-indigo-600 px-5 py-2 rounded text-white hover:bg-indigo-700 transition"
+          >
+            Contact
           </button>
           <button
             onClick={() => handleClick("/resume")}

@@ -208,6 +208,11 @@ function HTBDashboard() {
                       <span className="text-yellow-400">⭐ {machine.rating.toFixed(1)}</span>
                     </div>
                   )}
+                  {machine.badge && (
+                    <div className="flex justify-between">
+                      <img src="https://labs.hackthebox.com/achievement/machine/220943/829"></img>
+                    </div>
+                  )}
                   <div className="flex justify-between">
                     <span>Completed:</span>
                     <span className="text-gray-300">{new Date(machine.completed_date).toLocaleDateString()}</span>

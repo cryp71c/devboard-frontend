@@ -186,6 +186,7 @@ function HTBDashboard() {
               <div
                 key={machine.id}
                 className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700 hover:border-indigo-500 transition"
+                onClick={()  => window.location.href = machine.badge}
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-2">
@@ -206,11 +207,6 @@ function HTBDashboard() {
                     <div className="flex justify-between">
                       <span>Rating:</span>
                       <span className="text-yellow-400">⭐ {machine.rating.toFixed(1)}</span>
-                    </div>
-                  )}
-                  {machine.badge && (
-                    <div className="flex justify-between">
-                      <img src="https://labs.hackthebox.com/achievement/machine/220943/829"></img>
                     </div>
                   )}
                   <div className="flex justify-between">

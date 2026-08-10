@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function HTBDashboard() {
   const [profile, setProfile] = useState(null);
@@ -8,6 +8,7 @@ function HTBDashboard() {
   const [difficultyFilter, setDifficultyFilter] = useState("all");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
   const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
@@ -185,13 +186,16 @@ function HTBDashboard() {
             {filteredMachines.map((machine) => (
               <div
                 key={machine.id}
-                className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700 hover:border-indigo-500 transition"
-                onClick={()  => window.location.href = machine.badge}
+                className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700 hover:border-indigo-500 transition cursor-pointer"
+                onClick={() => navigate(`/htb/writeups/${machine.id}`)}
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <span className="text-2xl">{getOSIcon(machine.os)}</span>
                     <h3 className="text-xl font-semibold">{machine.name}</h3>
+                    {!machine.retired && (
+                      <span title="Writeup is access-key protected until this machine retires">🔒</span>
+                    )}
                   </div>
                   <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getDifficultyColor(machine.difficulty)}`}>
                     {machine.difficulty}

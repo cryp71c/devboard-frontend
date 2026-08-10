@@ -6,6 +6,7 @@ import ExperienceList from "./components/ExperienceList.jsx";
 import Projects from "./components/Projects.jsx";
 import Resume from "./components/Resume.jsx";
 import HTBDashboard from "./components/HTBDashboard.jsx";
+import HTBWriteupDetail from "./components/HTBWriteupDetail.jsx";
 import BlogList from "./components/BlogList.jsx";
 import BlogDetail from "./components/BlogDetail.jsx";
 import CurrentProjects from "./components/CurrentProjects.jsx";
@@ -23,6 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/projects" element={<Projects />} />
         <Route path="/resume" element={<Resume />} />
         <Route path="/htb" element={<HTBDashboard />} />
+        <Route path="/htb/writeups/:id" element={<HTBWriteupDetail />} />
         <Route path="/blog" element={<BlogList />} />
         <Route path="/blog/:slug" element={<BlogDetail />} />
         <Route path="/current-projects" element={<CurrentProjects />} />

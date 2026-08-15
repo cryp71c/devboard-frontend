@@ -239,6 +239,17 @@ function Contact() {
               GitHub
             </a>
           </div>
+          <p className="text-xs text-zinc-500 mt-6">
+            Reporting a security issue?{" "}
+            <a href="/pgp-key.asc" className="text-red-400 hover:underline">
+              PGP-encrypt it
+            </a>{" "}
+            to <code className="text-zinc-400">security@cryp71c.dev</code> — see{" "}
+            <a href="/.well-known/security.txt" className="text-red-400 hover:underline">
+              security.txt
+            </a>
+            .
+          </p>
         </div>
       </div>
     </div>

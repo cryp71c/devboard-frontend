@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import ReactMarkdown from "react-markdown";
@@ -14,6 +14,10 @@ const highlightOptions = {
   languages: { ...common, x86asm },
   aliases: { x86asm: ["asm"] },
 };
+
+// Lazy-loaded: pulls in a small WASM module, and only the CRC32C post needs
+// it — no reason for every other blog post to fetch it.
+const Crc32cDemo = lazy(() => import("./Crc32cDemo.jsx"));
 
 function BlogDetail() {
   const { slug } = useParams();
@@ -219,6 +223,18 @@ function BlogDetail() {
               </ReactMarkdown>
             </div>
           </article>
+
+          {post.slug === "crc32c-from-scratch-rust-inline-assembly" && (
+            <Suspense
+              fallback={
+                <div className="mt-8 flex items-center justify-center h-24 bg-zinc-900/60 rounded-xl border border-zinc-700">
+                  <div className="h-6 w-6 rounded-full border-2 border-red-500 border-t-transparent animate-spin" />
+                </div>
+              }
+            >
+              <Crc32cDemo />
+            </Suspense>
+          )}
 
           {/* Back to Blog */}
           <div className="mt-8 text-center">

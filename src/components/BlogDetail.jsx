@@ -36,35 +36,25 @@ function BlogDetail() {
   }, [slug]);
 
   return (
-    <div className="relative min-h-screen bg-gray-900 text-white overflow-hidden">
-      {/* Orb Backdrop */}
-      <div
-        className="absolute top-1/2 left-1/2 w-[500px] h-[500px] rounded-full z-0 -translate-x-1/2 -translate-y-1/2 animate-idle-rotate-pulse"
-        style={{
-          background: "conic-gradient(from 90deg at center, #4f46e5, #ec4899, #0ea5e9, #4f46e5)",
-          filter: "blur(180px) brightness(110%)",
-          mixBlendMode: "screen",
-        }}
-      />
-
+    <div className="relative min-h-screen bg-black text-white overflow-hidden">
       {/* Loading State */}
       {loading && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-gray-900/80 backdrop-blur-sm">
-          <div className="bg-gray-800 rounded-xl shadow-lg p-6 w-full max-w-md text-center">
-            <div className="mx-auto mb-4 h-10 w-10 rounded-full border-4 border-indigo-500 border-t-transparent animate-spin" />
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+          <div className="bg-zinc-900 rounded-xl shadow-lg p-6 w-full max-w-md text-center">
+            <div className="mx-auto mb-4 h-10 w-10 rounded-full border-4 border-red-500 border-t-transparent animate-spin" />
             <h2 className="text-lg font-semibold">Loading Article...</h2>
-            <p className="text-sm text-gray-400 mt-2">Fetching content</p>
+            <p className="text-sm text-zinc-400 mt-2">Fetching content</p>
           </div>
         </div>
       )}
 
       {/* Error State */}
       {error && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-gray-900/80 backdrop-blur-sm">
-          <div className="bg-red-900/50 border border-red-500 rounded-xl shadow-lg p-6 w-full max-w-md text-center">
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+          <div className="bg-red-950/50 border border-red-600 rounded-xl shadow-lg p-6 w-full max-w-md text-center">
             <h2 className="text-lg font-semibold text-red-400">Error Loading Article</h2>
-            <p className="text-sm text-gray-300 mt-2">{error}</p>
-            <Link to="/blog" className="mt-4 inline-block text-indigo-400 hover:underline">
+            <p className="text-sm text-zinc-300 mt-2">{error}</p>
+            <Link to="/blog" className="mt-4 inline-block text-red-400 hover:underline">
               ← Back to Blog
             </Link>
           </div>
@@ -74,19 +64,19 @@ function BlogDetail() {
       {/* Content */}
       {!loading && !error && post && (
         <div className="relative z-10 max-w-4xl mx-auto px-4 py-12">
-          <Link to="/blog" className="text-indigo-500 hover:underline block mb-6">
+          <Link to="/blog" className="text-red-500 hover:underline block mb-6">
             ← Back to Blog
           </Link>
 
-          <article className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 md:p-12 border border-gray-700">
+          <article className="bg-zinc-900/60 backdrop-blur-sm rounded-xl p-8 md:p-12 border border-zinc-700">
             {/* Header */}
-            <header className="mb-8 pb-8 border-b border-gray-700">
-              <h1 className="text-4xl md:text-5xl font-bold leading-[1.2] py-1 mb-4 bg-gradient-to-r from-indigo-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+            <header className="mb-8 pb-8 border-b border-zinc-700">
+              <h1 className="text-4xl md:text-5xl font-bold leading-[1.2] py-1 mb-4 bg-gradient-to-r from-red-500 via-zinc-200 to-red-600 bg-clip-text text-transparent">
                 {post.title}
               </h1>
 
               {/* Meta Info */}
-              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400 mb-4">
+              <div className="flex flex-wrap items-center gap-4 text-sm text-zinc-400 mb-4">
                 <span>{new Date(post.published_date).toLocaleDateString()}</span>
                 {post.read_time_minutes && (
                   <>
@@ -108,7 +98,7 @@ function BlogDetail() {
                   {post.tags.map((tag, idx) => (
                     <span
                       key={idx}
-                      className="px-3 py-1 bg-indigo-900/50 text-indigo-300 rounded-full text-xs font-medium border border-indigo-700"
+                      className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-full text-xs font-medium border border-zinc-600"
                     >
                       #{tag}
                     </span>
@@ -127,25 +117,25 @@ function BlogDetail() {
             </header>
 
             {/* Article Content */}
-            <div className="prose prose-invert prose-indigo max-w-none">
+            <div className="prose prose-invert prose-red max-w-none">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
                   h1: ({ node, ...props }) => (
-                    <h1 className="text-3xl font-bold mt-8 mb-4 text-indigo-400" {...props} />
+                    <h1 className="text-3xl font-bold mt-8 mb-4 text-red-400" {...props} />
                   ),
                   h2: ({ node, ...props }) => (
-                    <h2 className="text-2xl font-bold mt-6 mb-3 text-pink-400" {...props} />
+                    <h2 className="text-2xl font-bold mt-6 mb-3 text-zinc-200" {...props} />
                   ),
                   h3: ({ node, ...props }) => (
-                    <h3 className="text-xl font-bold mt-4 mb-2 text-blue-400" {...props} />
+                    <h3 className="text-xl font-bold mt-4 mb-2 text-amber-400" {...props} />
                   ),
                   p: ({ node, ...props }) => (
-                    <p className="mb-4 text-gray-300 leading-relaxed" {...props} />
+                    <p className="mb-4 text-zinc-300 leading-relaxed" {...props} />
                   ),
                   a: ({ node, ...props }) => (
                     <a
-                      className="text-indigo-400 hover:text-indigo-300 underline"
+                      className="text-red-400 hover:text-red-300 underline"
                       target="_blank"
                       rel="noopener noreferrer"
                       {...props}
@@ -157,55 +147,55 @@ function BlogDetail() {
                     // attaches to it — anything without that class is inline code.
                     const isBlock = /language-/.test(className || "");
                     return isBlock ? (
-                      <code className="block p-4 bg-gray-900 rounded-lg text-sm font-mono overflow-x-auto" {...props} />
+                      <code className="block p-4 bg-zinc-950 rounded-lg text-sm font-mono overflow-x-auto" {...props} />
                     ) : (
-                      <code className="px-2 py-1 bg-gray-900 text-pink-400 rounded text-sm font-mono" {...props} />
+                      <code className="px-2 py-1 bg-zinc-950 text-red-300 rounded text-sm font-mono" {...props} />
                     );
                   },
                   pre: ({ node, ...props }) => (
-                    <pre className="mb-4 bg-gray-900 rounded-lg overflow-x-auto" {...props} />
+                    <pre className="mb-4 bg-zinc-950 rounded-lg overflow-x-auto" {...props} />
                   ),
                   ul: ({ node, ...props }) => (
-                    <ul className="mb-4 ml-6 list-disc text-gray-300 space-y-2" {...props} />
+                    <ul className="mb-4 ml-6 list-disc text-zinc-300 space-y-2" {...props} />
                   ),
                   ol: ({ node, ...props }) => (
-                    <ol className="mb-4 ml-6 list-decimal text-gray-300 space-y-2" {...props} />
+                    <ol className="mb-4 ml-6 list-decimal text-zinc-300 space-y-2" {...props} />
                   ),
                   li: ({ node, ...props }) => (
                     <li className="leading-relaxed" {...props} />
                   ),
                   blockquote: ({ node, ...props }) => (
                     <blockquote
-                      className="pl-4 border-l-4 border-indigo-500 italic text-gray-400 my-4"
+                      className="pl-4 border-l-4 border-red-600 italic text-zinc-400 my-4"
                       {...props}
                     />
                   ),
                   img: ({ node, ...props }) => (
                     <img
-                      className="mx-auto my-6 rounded-lg border border-gray-700 bg-white p-2"
+                      className="mx-auto my-6 rounded-lg border border-zinc-700 bg-white p-2"
                       loading="lazy"
                       {...props}
                     />
                   ),
                   table: ({ node, ...props }) => (
-                    <div className="mb-4 overflow-x-auto rounded-lg border border-gray-700">
+                    <div className="mb-4 overflow-x-auto rounded-lg border border-zinc-700">
                       <table className="w-full text-sm text-left border-collapse" {...props} />
                     </div>
                   ),
                   thead: ({ node, ...props }) => (
-                    <thead className="bg-gray-900/70 text-indigo-300" {...props} />
+                    <thead className="bg-zinc-950/70 text-red-300" {...props} />
                   ),
                   tbody: ({ node, ...props }) => (
-                    <tbody className="divide-y divide-gray-700" {...props} />
+                    <tbody className="divide-y divide-zinc-700" {...props} />
                   ),
                   tr: ({ node, ...props }) => (
-                    <tr className="hover:bg-gray-900/40" {...props} />
+                    <tr className="hover:bg-zinc-950/40" {...props} />
                   ),
                   th: ({ node, ...props }) => (
                     <th className="px-4 py-2 font-semibold whitespace-nowrap" {...props} />
                   ),
                   td: ({ node, ...props }) => (
-                    <td className="px-4 py-2 text-gray-300 whitespace-nowrap" {...props} />
+                    <td className="px-4 py-2 text-zinc-300 whitespace-nowrap" {...props} />
                   ),
                 }}
               >
@@ -218,7 +208,7 @@ function BlogDetail() {
           <div className="mt-8 text-center">
             <Link
               to="/blog"
-              className="inline-block px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg font-medium transition"
+              className="inline-block px-6 py-3 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 rounded-lg font-medium transition"
             >
               ← Back to All Posts
             </Link>

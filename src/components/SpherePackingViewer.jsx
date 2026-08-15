@@ -19,7 +19,7 @@ const PackedSpheres = ({ positions, radius }) => {
   return (
     <instancedMesh ref={meshRef} args={[null, null, positions.length]}>
       <sphereGeometry args={[radius, 18, 18]} />
-      <meshStandardMaterial color="deepskyblue" metalness={0.3} roughness={0.6} />
+      <meshStandardMaterial color="#dc2626" metalness={0.6} roughness={0.35} />
     </instancedMesh>
   );
 };
@@ -77,7 +77,7 @@ export default function SpherePackingViewer() {
   return (
     <div className="flex flex-col lg:flex-row gap-6 max-w-7xl mx-auto p-4 text-white">
       <div className="flex-1 space-y-6">
-        <div className="h-[600px] border border-slate-700 shadow-xl rounded-xl overflow-hidden">
+        <div className="h-[600px] border border-zinc-700 shadow-xl rounded-xl overflow-hidden">
           <Canvas camera={{ position: [center[0], center[1], center[2] + 300], fov: 70 }}>
             <ambientLight intensity={0.9} />
             <directionalLight position={[10, 10, 10]} intensity={0.6} />
@@ -86,12 +86,12 @@ export default function SpherePackingViewer() {
             <PackedSpheres positions={positions} radius={radius} />
             <mesh position={center}>
               <boxGeometry args={[boxLength, boxWidth, boxHeight]} />
-              <meshBasicMaterial color="gray" wireframe transparent opacity={0.2} />
+              <meshBasicMaterial color="#71717a" wireframe transparent opacity={0.2} />
             </mesh>
           </Canvas>
         </div>
 
-        <div className="text-sm text-gray-300 text-center">
+        <div className="text-sm text-zinc-300 text-center">
           Total spheres: {positions.length.toLocaleString()} / {sphereLimit}
         </div>
 
@@ -102,7 +102,7 @@ export default function SpherePackingViewer() {
               const newVal = Number(e.target.value);
               if (estimateSphereCount(newVal, boxWidth, boxHeight, diameter) <= sphereLimit)
                 setBoxLength(newVal);
-            }} className="w-full" />
+            }} className="w-full accent-red-600" />
             <div>{boxLength.toFixed(1)} cm</div>
           </div>
           <div>
@@ -111,7 +111,7 @@ export default function SpherePackingViewer() {
               const newVal = Number(e.target.value);
               if (estimateSphereCount(boxLength, newVal, boxHeight, diameter) <= sphereLimit)
                 setBoxWidth(newVal);
-            }} className="w-full" />
+            }} className="w-full accent-red-600" />
             <div>{boxWidth.toFixed(1)} cm</div>
           </div>
           <div>
@@ -120,7 +120,7 @@ export default function SpherePackingViewer() {
               const newVal = Number(e.target.value);
               if (estimateSphereCount(boxLength, boxWidth, newVal, diameter) <= sphereLimit)
                 setBoxHeight(newVal);
-            }} className="w-full" />
+            }} className="w-full accent-red-600" />
             <div>{boxHeight.toFixed(1)} cm</div>
           </div>
           <div>
@@ -129,7 +129,7 @@ export default function SpherePackingViewer() {
               const newVal = Number(e.target.value);
               if (estimateSphereCount(boxLength, boxWidth, boxHeight, newVal) <= sphereLimit)
                 setDiameter(newVal);
-            }} className="w-full" />
+            }} className="w-full accent-red-600" />
             <div>{diameter.toFixed(1)} cm</div>
           </div>
         </div>
@@ -141,41 +141,41 @@ export default function SpherePackingViewer() {
         )}
       </div>
 
-      <div className="w-full lg:max-w-sm bg-slate-800 p-6 rounded-xl shadow-md">
-        <h2 className="text-2xl font-semibold mb-2 text-indigo-400">About this Project</h2>
-        <p className="text-sm text-gray-300 leading-relaxed">
+      <div className="w-full lg:max-w-sm bg-gradient-to-b from-zinc-800 to-zinc-900 border border-zinc-700 p-6 rounded-xl shadow-md">
+        <h2 className="text-2xl font-semibold mb-2 text-red-400">About this Project</h2>
+        <p className="text-sm text-zinc-300 leading-relaxed">
           This interactive tool demonstrates a <strong>sphere packing algorithm</strong> written in C++ and ported to the web.
           It calculates how many equal-sized spheres can fit inside a rectangular box,
           using a hexagonal close-packed stacking method similar to how oranges are stacked in a crate.
         </p>
-        <p className="mt-4 text-sm text-gray-400">
+        <p className="mt-4 text-sm text-zinc-400">
           Try adjusting the dimensions and sphere diameter using the sliders to see how the packing density changes.
           The algorithm runs in a background thread (Web Worker) for optimal performance.
         </p>
-        <p className="mt-4 text-xs text-gray-500 italic">
-          Originally written to test math and spatial reasoning in 3D, this became a fun performance & UI challenge. 
+        <p className="mt-4 text-xs text-zinc-500 italic">
+          Originally written to test math and spatial reasoning in 3D, this became a fun performance & UI challenge.
           But it started as a curious thought late one night in my dorm: “How many tennis balls could fit in my room?”
           That simple question led me to discover the fascinating world of sphere packing, and eventually to share this
           project and story during an interview — which helped me land my current role in tech.
         </p>
-        <p className="mt-4 text-sm text-gray-400">
-          Learn more about sphere packing on <a href="https://mathworld.wolfram.com/SpherePacking.html" className="text-indigo-300 hover:underline">MathWorld Wolfram</a>.
+        <p className="mt-4 text-sm text-zinc-400">
+          Learn more about sphere packing on <a href="https://mathworld.wolfram.com/SpherePacking.html" className="text-red-400 hover:underline">MathWorld Wolfram</a>.
         </p>
-        <p className="mt-4 text-sm text-gray-400">
-          MIT's exploration of Sphere Packing can be found in this <a href="https://math.mit.edu/classes/18.095/2015IAP/lecture6/lect_notes.pdf" className="text-indigo-300 hover:underline">lecture note</a>.
+        <p className="mt-4 text-sm text-zinc-400">
+          MIT's exploration of Sphere Packing can be found in this <a href="https://math.mit.edu/classes/18.095/2015IAP/lecture6/lect_notes.pdf" className="text-red-400 hover:underline">lecture note</a>.
         </p>
         <div className="mt-4 flex flex-wrap gap-2 text-xs">
-          <span className="bg-indigo-700 text-white px-2 py-1 rounded">C++</span>
-          <span className="bg-blue-600 text-white px-2 py-1 rounded">WebGL</span>
-          <span className="bg-purple-600 text-white px-2 py-1 rounded">React</span>
-          <span className="bg-gray-600 text-white px-2 py-1 rounded">Three.js</span>
+          <span className="bg-zinc-800 text-zinc-300 border border-zinc-600 px-2 py-1 rounded">C++</span>
+          <span className="bg-zinc-800 text-zinc-300 border border-zinc-600 px-2 py-1 rounded">WebGL</span>
+          <span className="bg-zinc-800 text-zinc-300 border border-zinc-600 px-2 py-1 rounded">React</span>
+          <span className="bg-zinc-800 text-zinc-300 border border-zinc-600 px-2 py-1 rounded">Three.js</span>
         </div>
 
         <a
           href="https://github.com/cryp71c/SpherePacking"
           target="_blank"
           rel="noopener noreferrer"
-          className="block mt-4 text-sm text-indigo-300 hover:text-indigo-400"
+          className="block mt-4 text-sm text-red-400 hover:text-red-300"
         >
           View C++ Source Code on GitHub →
         </a>

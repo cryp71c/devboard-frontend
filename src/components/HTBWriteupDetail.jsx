@@ -78,22 +78,12 @@ function HTBWriteupDetail() {
   };
 
   return (
-    <div className="relative min-h-screen bg-gray-900 text-white overflow-hidden">
-      {/* Orb Backdrop */}
-      <div
-        className="absolute top-1/2 left-1/2 w-[500px] h-[500px] rounded-full z-0 -translate-x-1/2 -translate-y-1/2 animate-idle-rotate-pulse"
-        style={{
-          background: "conic-gradient(from 90deg at center, #4f46e5, #ec4899, #0ea5e9, #4f46e5)",
-          filter: "blur(180px) brightness(110%)",
-          mixBlendMode: "screen",
-        }}
-      />
-
+    <div className="relative min-h-screen bg-black text-white overflow-hidden">
       {/* Loading State */}
       {loading && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-gray-900/80 backdrop-blur-sm">
-          <div className="bg-gray-800 rounded-xl shadow-lg p-6 w-full max-w-md text-center">
-            <div className="mx-auto mb-4 h-10 w-10 rounded-full border-4 border-indigo-500 border-t-transparent animate-spin" />
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+          <div className="bg-zinc-900 rounded-xl shadow-lg p-6 w-full max-w-md text-center">
+            <div className="mx-auto mb-4 h-10 w-10 rounded-full border-4 border-red-500 border-t-transparent animate-spin" />
             <h2 className="text-lg font-semibold">Loading Writeup...</h2>
           </div>
         </div>
@@ -101,11 +91,11 @@ function HTBWriteupDetail() {
 
       {/* Error State */}
       {error && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-gray-900/80 backdrop-blur-sm">
-          <div className="bg-red-900/50 border border-red-500 rounded-xl shadow-lg p-6 w-full max-w-md text-center">
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+          <div className="bg-red-950/50 border border-red-600 rounded-xl shadow-lg p-6 w-full max-w-md text-center">
             <h2 className="text-lg font-semibold text-red-400">Error Loading Writeup</h2>
-            <p className="text-sm text-gray-300 mt-2">{error}</p>
-            <Link to="/htb" className="mt-4 inline-block text-indigo-400 hover:underline">
+            <p className="text-sm text-zinc-300 mt-2">{error}</p>
+            <Link to="/htb" className="mt-4 inline-block text-red-400 hover:underline">
               ← Back to Security Lab
             </Link>
           </div>
@@ -115,14 +105,14 @@ function HTBWriteupDetail() {
       {/* Locked State */}
       {!loading && !error && needsKey && (
         <div className="relative z-10 max-w-md mx-auto px-4 py-24">
-          <Link to="/htb" className="text-indigo-500 hover:underline block mb-6">
+          <Link to="/htb" className="text-red-500 hover:underline block mb-6">
             ← Back to Security Lab
           </Link>
 
-          <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 border border-gray-700 text-center">
+          <div className="bg-zinc-900/60 backdrop-blur-sm rounded-xl p-8 border border-zinc-700 text-center">
             <div className="text-5xl mb-4">🔒</div>
             <h1 className="text-2xl font-bold mb-2">This Writeup is Locked</h1>
-            <p className="text-gray-400 mb-6 text-sm">
+            <p className="text-zinc-400 mb-6 text-sm">
               This machine hasn't retired yet, so the full writeup is access-key protected.
               If you were given an access key, enter it below.
             </p>
@@ -133,14 +123,14 @@ function HTBWriteupDetail() {
                 value={keyInput}
                 onChange={(e) => setKeyInput(e.target.value)}
                 placeholder="Access key"
-                className="w-full px-4 py-2 rounded-lg bg-gray-900 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500"
+                className="w-full px-4 py-2 rounded-lg bg-black border border-zinc-700 text-white placeholder-zinc-500 focus:outline-none focus:border-red-600"
                 autoFocus
               />
               {unlockError && <p className="text-red-400 text-sm">{unlockError}</p>}
               <button
                 type="submit"
                 disabled={unlocking || !keyInput.trim()}
-                className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-2 rounded-lg font-medium transition"
+                className="w-full bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-2 rounded-lg font-medium transition"
               >
                 {unlocking ? "Checking..." : "Unlock"}
               </button>
@@ -152,17 +142,17 @@ function HTBWriteupDetail() {
       {/* Content */}
       {!loading && !error && !needsKey && machine && (
         <div className="relative z-10 max-w-4xl mx-auto px-4 py-12">
-          <Link to="/htb" className="text-indigo-500 hover:underline block mb-6">
+          <Link to="/htb" className="text-red-500 hover:underline block mb-6">
             ← Back to Security Lab
           </Link>
 
-          <article className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 md:p-12 border border-gray-700">
-            <header className="mb-8 pb-8 border-b border-gray-700">
-              <h1 className="text-4xl md:text-5xl font-bold leading-[1.2] py-1 mb-4 bg-gradient-to-r from-indigo-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+          <article className="bg-zinc-900/60 backdrop-blur-sm rounded-xl p-8 md:p-12 border border-zinc-700">
+            <header className="mb-8 pb-8 border-b border-zinc-700">
+              <h1 className="text-4xl md:text-5xl font-bold leading-[1.2] py-1 mb-4 bg-gradient-to-r from-red-500 via-zinc-200 to-red-600 bg-clip-text text-transparent">
                 {machine.name}
               </h1>
 
-              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400 mb-2">
+              <div className="flex flex-wrap items-center gap-4 text-sm text-zinc-400 mb-2">
                 <span>{machine.os}</span>
                 <span>•</span>
                 <span>{machine.difficulty}</span>
@@ -181,32 +171,32 @@ function HTBWriteupDetail() {
                   href={machine.badge}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-indigo-400 hover:underline text-sm"
+                  className="text-red-400 hover:underline text-sm"
                 >
                   View HTB Achievement ↗
                 </a>
               )}
             </header>
 
-            <div className="prose prose-invert prose-indigo max-w-none">
+            <div className="prose prose-invert prose-red max-w-none">
               {machine.walkthrough ? (
                 <ReactMarkdown
                   components={{
                     h1: ({ node, ...props }) => (
-                      <h1 className="text-3xl font-bold mt-8 mb-4 text-indigo-400" {...props} />
+                      <h1 className="text-3xl font-bold mt-8 mb-4 text-red-400" {...props} />
                     ),
                     h2: ({ node, ...props }) => (
-                      <h2 className="text-2xl font-bold mt-6 mb-3 text-pink-400" {...props} />
+                      <h2 className="text-2xl font-bold mt-6 mb-3 text-zinc-200" {...props} />
                     ),
                     h3: ({ node, ...props }) => (
-                      <h3 className="text-xl font-bold mt-4 mb-2 text-blue-400" {...props} />
+                      <h3 className="text-xl font-bold mt-4 mb-2 text-amber-400" {...props} />
                     ),
                     p: ({ node, ...props }) => (
-                      <p className="mb-4 text-gray-300 leading-relaxed" {...props} />
+                      <p className="mb-4 text-zinc-300 leading-relaxed" {...props} />
                     ),
                     a: ({ node, ...props }) => (
                       <a
-                        className="text-indigo-400 hover:text-indigo-300 underline"
+                        className="text-red-400 hover:text-red-300 underline"
                         target="_blank"
                         rel="noopener noreferrer"
                         {...props}
@@ -218,24 +208,24 @@ function HTBWriteupDetail() {
                       // attaches to it — anything without that class is inline code.
                       const isBlock = /language-/.test(className || "");
                       return isBlock ? (
-                        <code className="block p-4 bg-gray-900 rounded-lg text-sm font-mono overflow-x-auto" {...props} />
+                        <code className="block p-4 bg-zinc-950 rounded-lg text-sm font-mono overflow-x-auto" {...props} />
                       ) : (
-                        <code className="px-2 py-1 bg-gray-900 text-pink-400 rounded text-sm font-mono" {...props} />
+                        <code className="px-2 py-1 bg-zinc-950 text-red-300 rounded text-sm font-mono" {...props} />
                       );
                     },
                     pre: ({ node, ...props }) => (
-                      <pre className="mb-4 bg-gray-900 rounded-lg overflow-x-auto" {...props} />
+                      <pre className="mb-4 bg-zinc-950 rounded-lg overflow-x-auto" {...props} />
                     ),
                     ul: ({ node, ...props }) => (
-                      <ul className="mb-4 ml-6 list-disc text-gray-300 space-y-2" {...props} />
+                      <ul className="mb-4 ml-6 list-disc text-zinc-300 space-y-2" {...props} />
                     ),
                     ol: ({ node, ...props }) => (
-                      <ol className="mb-4 ml-6 list-decimal text-gray-300 space-y-2" {...props} />
+                      <ol className="mb-4 ml-6 list-decimal text-zinc-300 space-y-2" {...props} />
                     ),
                     li: ({ node, ...props }) => <li className="leading-relaxed" {...props} />,
                     blockquote: ({ node, ...props }) => (
                       <blockquote
-                        className="pl-4 border-l-4 border-indigo-500 italic text-gray-400 my-4"
+                        className="pl-4 border-l-4 border-red-600 italic text-zinc-400 my-4"
                         {...props}
                       />
                     ),
@@ -244,7 +234,7 @@ function HTBWriteupDetail() {
                   {machine.walkthrough}
                 </ReactMarkdown>
               ) : (
-                <p className="text-gray-400">No writeup content yet — check back soon.</p>
+                <p className="text-zinc-400">No writeup content yet — check back soon.</p>
               )}
             </div>
           </article>
@@ -252,7 +242,7 @@ function HTBWriteupDetail() {
           <div className="mt-8 text-center">
             <Link
               to="/htb"
-              className="inline-block px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg font-medium transition"
+              className="inline-block px-6 py-3 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 rounded-lg font-medium transition"
             >
               ← Back to Security Lab
             </Link>

@@ -44,13 +44,16 @@ function HTBDashboard() {
   }, [difficultyFilter, machines]);
 
   const getDifficultyColor = (difficulty) => {
+    // Escalating danger scale that stays inside the black/red palette:
+    // green -> amber -> bright red -> near-black red (darker than "hard"
+    // itself, reading as the most extreme tier).
     const colors = {
       easy: "bg-green-500 text-white",
       medium: "bg-yellow-500 text-black",
       hard: "bg-red-500 text-white",
-      insane: "bg-purple-600 text-white",
+      insane: "bg-red-950 text-red-300 border border-red-700",
     };
-    return colors[difficulty.toLowerCase()] || "bg-gray-500 text-white";
+    return colors[difficulty.toLowerCase()] || "bg-zinc-600 text-white";
   };
 
   const getOSIcon = (os) => {
@@ -60,35 +63,25 @@ function HTBDashboard() {
   };
 
   return (
-    <div className="relative min-h-screen bg-gray-900 text-white overflow-hidden">
-      {/* Orb Backdrop */}
-      <div
-        className="absolute top-1/2 left-1/2 w-[500px] h-[500px] rounded-full z-0 -translate-x-1/2 -translate-y-1/2 animate-idle-rotate-pulse"
-        style={{
-          background: "conic-gradient(from 90deg at center, #4f46e5, #ec4899, #0ea5e9, #4f46e5)",
-          filter: "blur(180px) brightness(110%)",
-          mixBlendMode: "screen",
-        }}
-      />
-
+    <div className="relative min-h-screen bg-black text-white overflow-hidden">
       {/* Loading State */}
       {loading && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-gray-900/80 backdrop-blur-sm">
-          <div className="bg-gray-800 rounded-xl shadow-lg p-6 w-full max-w-md text-center">
-            <div className="mx-auto mb-4 h-10 w-10 rounded-full border-4 border-indigo-500 border-t-transparent animate-spin" />
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+          <div className="bg-zinc-900 rounded-xl shadow-lg p-6 w-full max-w-md text-center">
+            <div className="mx-auto mb-4 h-10 w-10 rounded-full border-4 border-red-500 border-t-transparent animate-spin" />
             <h2 className="text-lg font-semibold">Loading HTB Profile...</h2>
-            <p className="text-sm text-gray-400 mt-2">Fetching your hacking achievements</p>
+            <p className="text-sm text-zinc-400 mt-2">Fetching your hacking achievements</p>
           </div>
         </div>
       )}
 
       {/* Error State */}
       {error && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-gray-900/80 backdrop-blur-sm">
-          <div className="bg-red-900/50 border border-red-500 rounded-xl shadow-lg p-6 w-full max-w-md text-center">
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+          <div className="bg-red-950/50 border border-red-600 rounded-xl shadow-lg p-6 w-full max-w-md text-center">
             <h2 className="text-lg font-semibold text-red-400">Error Loading HTB Data</h2>
-            <p className="text-sm text-gray-300 mt-2">{error}</p>
-            <Link to="/" className="mt-4 inline-block text-indigo-400 hover:underline">
+            <p className="text-sm text-zinc-300 mt-2">{error}</p>
+            <Link to="/" className="mt-4 inline-block text-red-400 hover:underline">
               ← Back to Home
             </Link>
           </div>
@@ -98,32 +91,32 @@ function HTBDashboard() {
       {/* Content */}
       {!loading && !error && profile && (
         <div className="relative z-10 max-w-7xl mx-auto px-4 py-12">
-          <Link to="/" className="text-indigo-500 hover:underline block mb-6">
+          <Link to="/" className="text-red-500 hover:underline block mb-6">
             ← Back
           </Link>
 
-          <h1 className="text-5xl font-bold leading-[1.2] py-1 text-center mb-2 bg-gradient-to-r from-indigo-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+          <h1 className="text-5xl font-bold leading-[1.2] py-1 text-center mb-2 bg-gradient-to-r from-red-500 via-zinc-200 to-red-600 bg-clip-text text-transparent">
             Security Lab
           </h1>
-          <p className="text-center text-gray-400 mb-12">Hack The Box Profile & Achievements</p>
+          <p className="text-center text-zinc-400 mb-12">Hack The Box Profile & Achievements</p>
 
           {/* Profile Stats */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700">
-              <div className="text-3xl font-bold text-indigo-400">{profile.rank}</div>
-              <div className="text-sm text-gray-400 mt-1">Current Rank</div>
+            <div className="bg-zinc-900/60 backdrop-blur-sm rounded-xl p-6 border border-zinc-700">
+              <div className="text-3xl font-bold text-red-400">{profile.rank}</div>
+              <div className="text-sm text-zinc-400 mt-1">Current Rank</div>
             </div>
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700">
-              <div className="text-3xl font-bold text-pink-400">{profile.points}</div>
-              <div className="text-sm text-gray-400 mt-1">Total Points</div>
+            <div className="bg-zinc-900/60 backdrop-blur-sm rounded-xl p-6 border border-zinc-700">
+              <div className="text-3xl font-bold text-amber-400">{profile.points}</div>
+              <div className="text-sm text-zinc-400 mt-1">Total Points</div>
             </div>
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700">
+            <div className="bg-zinc-900/60 backdrop-blur-sm rounded-xl p-6 border border-zinc-700">
               <div className="text-3xl font-bold text-green-400">{profile.user_owns}</div>
-              <div className="text-sm text-gray-400 mt-1">User Owns</div>
+              <div className="text-sm text-zinc-400 mt-1">User Owns</div>
             </div>
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700">
-              <div className="text-3xl font-bold text-red-400">{profile.root_owns}</div>
-              <div className="text-sm text-gray-400 mt-1">Root Owns</div>
+            <div className="bg-zinc-900/60 backdrop-blur-sm rounded-xl p-6 border border-zinc-700">
+              <div className="text-3xl font-bold text-zinc-200">{profile.root_owns}</div>
+              <div className="text-sm text-zinc-400 mt-1">Root Owns</div>
             </div>
           </div>
 
@@ -133,8 +126,8 @@ function HTBDashboard() {
               onClick={() => setDifficultyFilter("all")}
               className={`px-4 py-2 rounded-lg font-medium transition ${
                 difficultyFilter === "all"
-                  ? "bg-indigo-600 text-white"
-                  : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                  ? "bg-gradient-to-b from-red-500 to-red-700 text-white"
+                  : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
               }`}
             >
               All ({machines.length})
@@ -144,7 +137,7 @@ function HTBDashboard() {
               className={`px-4 py-2 rounded-lg font-medium transition ${
                 difficultyFilter === "easy"
                   ? "bg-green-500 text-white"
-                  : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                  : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
               }`}
             >
               Easy ({machines.filter((m) => m.difficulty === "Easy").length})
@@ -154,7 +147,7 @@ function HTBDashboard() {
               className={`px-4 py-2 rounded-lg font-medium transition ${
                 difficultyFilter === "medium"
                   ? "bg-yellow-500 text-black"
-                  : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                  : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
               }`}
             >
               Medium ({machines.filter((m) => m.difficulty === "Medium").length})
@@ -164,7 +157,7 @@ function HTBDashboard() {
               className={`px-4 py-2 rounded-lg font-medium transition ${
                 difficultyFilter === "hard"
                   ? "bg-red-500 text-white"
-                  : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                  : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
               }`}
             >
               Hard ({machines.filter((m) => m.difficulty === "Hard").length})
@@ -173,8 +166,8 @@ function HTBDashboard() {
               onClick={() => setDifficultyFilter("insane")}
               className={`px-4 py-2 rounded-lg font-medium transition ${
                 difficultyFilter === "insane"
-                  ? "bg-purple-600 text-white"
-                  : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                  ? "bg-red-950 text-red-300 border border-red-700"
+                  : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
               }`}
             >
               Insane ({machines.filter((m) => m.difficulty === "Insane").length})
@@ -186,7 +179,7 @@ function HTBDashboard() {
             {filteredMachines.map((machine) => (
               <div
                 key={machine.id}
-                className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700 hover:border-indigo-500 transition cursor-pointer"
+                className="bg-zinc-900/60 backdrop-blur-sm rounded-xl p-6 border border-zinc-700 hover:border-red-600 transition cursor-pointer"
                 onClick={() => navigate(`/htb/writeups/${machine.id}`)}
               >
                 <div className="flex items-start justify-between mb-3">
@@ -202,10 +195,10 @@ function HTBDashboard() {
                   </span>
                 </div>
 
-                <div className="text-sm text-gray-400 space-y-1">
+                <div className="text-sm text-zinc-400 space-y-1">
                   <div className="flex justify-between">
                     <span>OS:</span>
-                    <span className="text-gray-300">{machine.os}</span>
+                    <span className="text-zinc-300">{machine.os}</span>
                   </div>
                   {machine.rating && (
                     <div className="flex justify-between">
@@ -215,9 +208,9 @@ function HTBDashboard() {
                   )}
                   <div className="flex justify-between">
                     <span>Completed:</span>
-                    <span className="text-gray-300">{new Date(machine.completed_date).toLocaleDateString()}</span>
+                    <span className="text-zinc-300">{new Date(machine.completed_date).toLocaleDateString()}</span>
                   </div>
-                  <div className="flex gap-4 mt-3 pt-3 border-t border-gray-700">
+                  <div className="flex gap-4 mt-3 pt-3 border-t border-zinc-700">
                     <div className="flex items-center gap-1">
                       <span className="text-green-400">👤</span>
                       <span className="text-xs">{machine.user_owns ? "User" : ""}</span>
@@ -235,7 +228,7 @@ function HTBDashboard() {
           {/* Empty State */}
           {filteredMachines.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-gray-400 text-lg">No machines found for this difficulty level.</p>
+              <p className="text-zinc-400 text-lg">No machines found for this difficulty level.</p>
             </div>
           )}
 
@@ -246,7 +239,7 @@ function HTBDashboard() {
                 href={profile.profile_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition"
+                className="inline-block bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 text-white px-6 py-3 rounded-lg font-medium transition"
               >
                 View Full HTB Profile →
               </a>

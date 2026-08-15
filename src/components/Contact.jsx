@@ -80,27 +80,17 @@ function Contact() {
   };
 
   return (
-    <div className="relative min-h-screen bg-gray-900 text-white overflow-hidden">
-      {/* Orb Backdrop */}
-      <div
-        className="absolute top-1/2 left-1/2 w-[500px] h-[500px] rounded-full z-0 -translate-x-1/2 -translate-y-1/2 animate-idle-rotate-pulse"
-        style={{
-          background: "conic-gradient(from 90deg at center, #4f46e5, #ec4899, #0ea5e9, #4f46e5)",
-          filter: "blur(180px) brightness(110%)",
-          mixBlendMode: "screen",
-        }}
-      />
-
+    <div className="relative min-h-screen bg-black text-white overflow-hidden">
       {/* Content */}
       <div className="relative z-10 max-w-3xl mx-auto px-4 py-12">
-        <Link to="/" className="text-indigo-500 hover:underline block mb-6">
+        <Link to="/" className="text-red-500 hover:underline block mb-6">
           ← Back
         </Link>
 
-        <h1 className="text-5xl font-bold leading-[1.2] py-1 text-center mb-2 bg-gradient-to-r from-indigo-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+        <h1 className="text-5xl font-bold leading-[1.2] py-1 text-center mb-2 bg-gradient-to-r from-red-500 via-zinc-200 to-red-600 bg-clip-text text-transparent">
           Get In Touch
         </h1>
-        <p className="text-center text-gray-400 mb-12">
+        <p className="text-center text-zinc-400 mb-12">
           Have a project in mind or want to connect? Drop me a message!
         </p>
 
@@ -109,7 +99,7 @@ function Contact() {
           <div className="mb-8 p-6 bg-green-900/50 border border-green-500 rounded-xl text-center">
             <div className="text-4xl mb-2">✓</div>
             <h2 className="text-xl font-bold text-green-400 mb-2">Message Sent!</h2>
-            <p className="text-gray-300">Thanks for reaching out. I'll get back to you soon.</p>
+            <p className="text-zinc-300">Thanks for reaching out. I'll get back to you soon.</p>
             <button
               onClick={() => setSuccess(false)}
               className="mt-4 px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-sm font-medium transition"
@@ -128,10 +118,10 @@ function Contact() {
 
         {/* Contact Form */}
         {!success && (
-          <form onSubmit={handleSubmit} className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 border border-gray-700">
+          <form onSubmit={handleSubmit} className="bg-zinc-900/60 backdrop-blur-sm rounded-xl p-8 border border-zinc-700">
             {/* Name Field */}
             <div className="mb-6">
-              <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="name" className="block text-sm font-medium text-zinc-300 mb-2">
                 Name <span className="text-red-400">*</span>
               </label>
               <input
@@ -141,14 +131,14 @@ function Contact() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition"
+                className="w-full px-4 py-3 bg-black border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:border-red-600 transition"
                 placeholder="Your name"
               />
             </div>
 
             {/* Email Field */}
             <div className="mb-6">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-zinc-300 mb-2">
                 Email <span className="text-red-400">*</span>
               </label>
               <input
@@ -158,15 +148,15 @@ function Contact() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition"
+                className="w-full px-4 py-3 bg-black border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:border-red-600 transition"
                 placeholder="your.email@example.com"
               />
             </div>
 
             {/* Subject Field */}
             <div className="mb-6">
-              <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
-                Subject <span className="text-gray-500">(optional)</span>
+              <label htmlFor="subject" className="block text-sm font-medium text-zinc-300 mb-2">
+                Subject <span className="text-zinc-500">(optional)</span>
               </label>
               <input
                 type="text"
@@ -174,7 +164,7 @@ function Contact() {
                 name="subject"
                 value={formData.subject}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition"
+                className="w-full px-4 py-3 bg-black border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:border-red-600 transition"
                 placeholder="What's this about?"
               />
             </div>
@@ -195,7 +185,7 @@ function Contact() {
 
             {/* Message Field */}
             <div className="mb-6">
-              <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="message" className="block text-sm font-medium text-zinc-300 mb-2">
                 Message <span className="text-red-400">*</span>
               </label>
               <textarea
@@ -205,7 +195,7 @@ function Contact() {
                 onChange={handleChange}
                 required
                 rows="6"
-                className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition resize-none"
+                className="w-full px-4 py-3 bg-black border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:border-red-600 transition resize-none"
                 placeholder="Your message..."
               />
             </div>
@@ -214,7 +204,7 @@ function Contact() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full px-6 py-3 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-600 disabled:cursor-not-allowed rounded-lg font-medium transition flex items-center justify-center gap-2"
+              className="w-full px-6 py-3 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 disabled:from-zinc-700 disabled:to-zinc-700 disabled:cursor-not-allowed rounded-lg font-medium transition flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
@@ -226,7 +216,7 @@ function Contact() {
               )}
             </button>
 
-            <p className="mt-4 text-center text-sm text-gray-400">
+            <p className="mt-4 text-center text-sm text-zinc-400">
               Your information will never be shared with third parties.
             </p>
           </form>
@@ -240,7 +230,7 @@ function Contact() {
               href="https://github.com/cryp71c"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-lg font-medium transition"
+              className="px-6 py-3 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 hover:border-red-600 rounded-lg font-medium transition"
             >
               GitHub
             </a>

@@ -54,10 +54,13 @@ function Projects() {
               block, per-extent, and whole-file — each backed by its own SHA-256.
               <br />
               <br />
-              I'm now rewriting the on-disk layer in Rust with hardware-accelerated CRC32C for fast
-              corruption detection — read the{" "}
+              Full write-up — architecture, on-disk layout, and the design decisions behind it — is{" "}
+              <Link to="/blog/mmfs-multimedia-file-system" className="text-indigo-400 hover:underline">
+                on the blog
+              </Link>. I'm now rewriting the on-disk layer in Rust with hardware-accelerated CRC32C
+              for fast corruption detection — that{" "}
               <Link to="/blog/crc32c-from-scratch-rust-inline-assembly" className="text-indigo-400 hover:underline">
-                write-up on the blog
+                write-up is here
               </Link>.
             </p>
             <div className="flex flex-wrap gap-2 mt-4">
@@ -96,6 +99,12 @@ function Projects() {
               can cancel out the state change from an earlier one. Two equal-length, structured multi-word
               inputs can collide. Great case study in why "fast" and "well-distributed" aren't the same
               property — MmFS itself keeps SHA-256 for anything that actually matters.
+              <br />
+              <br />
+              Full write-up — the design, the SMHasher results, and exactly why it fails — is{" "}
+              <Link to="/blog/midnight-madness-64bit-hash" className="text-indigo-400 hover:underline">
+                on the blog
+              </Link>.
             </p>
             <div className="flex flex-wrap gap-2 mt-4">
               {["x86-64 Assembly", "NASM", "C", "SMHasher", "Hashing"].map((tech) => (

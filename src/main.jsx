@@ -7,7 +7,6 @@ import HTBDashboard from "./components/HTBDashboard.jsx";
 import HTBWriteupDetail from "./components/HTBWriteupDetail.jsx";
 import BlogList from "./components/BlogList.jsx";
 import BlogDetail from "./components/BlogDetail.jsx";
-import CurrentProjects from "./components/CurrentProjects.jsx";
 import Contact from "./components/Contact.jsx";
 import Certifications from "./components/Certifications.jsx";
 import "./index.css";
@@ -23,7 +22,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/htb/writeups/:id" element={<HTBWriteupDetail />} />
         <Route path="/blog" element={<BlogList />} />
         <Route path="/blog/:slug" element={<BlogDetail />} />
-        <Route path="/current-projects" element={<CurrentProjects />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/certifications" element={<Certifications />} />
       </Routes>

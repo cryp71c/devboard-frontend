@@ -1,11 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import init, { crc32c_u32 } from "../wasm/crc32c/crc32c_wasm.js";
 
-// Known CRC32C("123456789") test vector — used to self-check the loaded
-// WASM module actually computes the right thing before trusting it with
-// user input.
-const SELF_CHECK_INPUT = "123456789";
 const SELF_CHECK_EXPECTED = 0xe3069283;
 
 function formatThroughput(bytes, ms) {
@@ -17,56 +12,81 @@ function formatThroughput(bytes, ms) {
   return `${mibPerSecond.toFixed(1)} MiB/s`;
 }
 
-function toHex(n) {
-  return "0x" + (n >>> 0).toString(16).toUpperCase().padStart(8, "0");
+function formatBytes(bytes) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KiB`;
+  if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MiB`;
+  return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GiB`;
 }
 
 export default function Crc32cDemo() {
   const [status, setStatus] = useState("loading"); // loading | ready | error
   const [selfCheckOk, setSelfCheckOk] = useState(null);
   const [text, setText] = useState("");
-  const [fileInfo, setFileInfo] = useState(null); // { name, bytes: Uint8Array }
+  const [fileInfo, setFileInfo] = useState(null); // { name, size }
+  const [hashing, setHashing] = useState(false);
+  const [progress, setProgress] = useState(null); // { processed, total } | null
   const [result, setResult] = useState(null); // { hex, byteCount, ms, source }
+  const [hashError, setHashError] = useState(null);
   const fileInputRef = useRef(null);
+  const workerRef = useRef(null);
+  const requestIdRef = useRef(0);
 
   useEffect(() => {
-    let cancelled = false;
-    init()
-      .then(() => {
-        if (cancelled) return;
-        const check = crc32c_u32(new TextEncoder().encode(SELF_CHECK_INPUT));
-        setSelfCheckOk(check === SELF_CHECK_EXPECTED);
+    const worker = new Worker(new URL("../wasm/crc32c/crc32c.worker.js", import.meta.url), {
+      type: "module",
+    });
+    workerRef.current = worker;
+
+    worker.onmessage = (e) => {
+      const msg = e.data;
+      if (msg.type === "self-check-result") {
+        setSelfCheckOk(msg.result === SELF_CHECK_EXPECTED);
         setStatus("ready");
-      })
-      .catch((err) => {
-        console.error("Failed to load CRC32C WASM module:", err);
-        if (!cancelled) setStatus("error");
-      });
-    return () => {
-      cancelled = true;
+      } else if (msg.type === "progress") {
+        setProgress({ processed: msg.processed, total: msg.total });
+      } else if (msg.type === "done") {
+        setResult({ hex: msg.hex, byteCount: msg.byteCount, ms: msg.ms, source: msg.source });
+        setHashing(false);
+        setProgress(null);
+      } else if (msg.type === "error") {
+        setHashError(msg.message);
+        setHashing(false);
+        setProgress(null);
+      }
     };
+
+    worker.onerror = (err) => {
+      console.error("CRC32C worker error:", err);
+      setStatus("error");
+    };
+
+    worker.postMessage({ type: "self-check" });
+
+    return () => worker.terminate();
   }, []);
 
-  const runHash = (bytes, source) => {
-    const start = performance.now();
-    const checksum = crc32c_u32(bytes);
-    const ms = performance.now() - start;
-    setResult({ hex: toHex(checksum), byteCount: bytes.length, ms, source });
+  const startHash = (message) => {
+    setHashError(null);
+    setResult(null);
+    setHashing(true);
+    setProgress(null);
+    requestIdRef.current += 1;
+    workerRef.current?.postMessage({ ...message, id: requestIdRef.current });
   };
 
   const handleHashText = () => {
-    runHash(new TextEncoder().encode(text), "text");
+    startHash({ type: "hash-text", text });
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    file.arrayBuffer().then((buf) => {
-      const bytes = new Uint8Array(buf);
-      setFileInfo({ name: file.name, bytes });
-      runHash(bytes, file.name);
-    });
+    setFileInfo({ name: file.name, size: file.size });
+    startHash({ type: "hash-file", file });
   };
+
+  const progressPercent = progress && progress.total > 0 ? (progress.processed / progress.total) * 100 : 0;
 
   return (
     <div>
@@ -81,7 +101,8 @@ export default function Crc32cDemo() {
         <Link to="/blog/crc32c-from-scratch-rust-inline-assembly" className="text-red-400 hover:underline">
           the blog
         </Link>
-        .
+        . Files are hashed in a background worker, in 8 MiB chunks, so the page never freezes — nothing is
+        ever uploaded anywhere, it's all local to your browser.
       </p>
 
       {status === "loading" && (
@@ -93,7 +114,8 @@ export default function Crc32cDemo() {
 
       {status === "error" && (
         <p className="text-red-400 text-sm">
-          Couldn't load the WASM module. Your browser may not support WebAssembly, or it failed to fetch.
+          Couldn't load the WASM module. Your browser may not support WebAssembly or Web Workers, or it
+          failed to fetch.
         </p>
       )}
 
@@ -102,7 +124,7 @@ export default function Crc32cDemo() {
           <div className="mb-4 text-xs">
             {selfCheckOk ? (
               <span className="text-green-400">
-                ✓ Self-check passed — CRC32C("123456789") = {toHex(SELF_CHECK_EXPECTED)}
+                ✓ Self-check passed — CRC32C("123456789") = 0xE3069283
               </span>
             ) : (
               <span className="text-red-400">
@@ -116,13 +138,14 @@ export default function Crc32cDemo() {
             onChange={(e) => setText(e.target.value)}
             placeholder="Paste some text to hash..."
             rows={4}
-            className="w-full px-4 py-3 bg-black border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:border-red-600 transition resize-none font-mono text-sm mb-3"
+            disabled={hashing}
+            className="w-full px-4 py-3 bg-black border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:border-red-600 transition resize-none font-mono text-sm mb-3 disabled:opacity-50"
           />
 
           <div className="flex flex-wrap items-center gap-3 mb-4">
             <button
               onClick={handleHashText}
-              disabled={text.length === 0}
+              disabled={hashing || text.length === 0}
               className="px-4 py-2 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 disabled:from-zinc-700 disabled:to-zinc-700 disabled:cursor-not-allowed rounded-lg text-sm font-medium transition"
             >
               Hash This Text
@@ -130,13 +153,39 @@ export default function Crc32cDemo() {
             <span className="text-zinc-500 text-sm">or</span>
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="px-4 py-2 bg-zinc-800 border border-zinc-600 hover:bg-zinc-700 hover:border-red-600 rounded-lg text-sm font-medium transition"
+              disabled={hashing}
+              className="px-4 py-2 bg-zinc-800 border border-zinc-600 hover:bg-zinc-700 hover:border-red-600 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg text-sm font-medium transition"
             >
               Upload a File
             </button>
             <input ref={fileInputRef} type="file" onChange={handleFileChange} className="hidden" />
-            {fileInfo && <span className="text-zinc-400 text-xs font-mono">{fileInfo.name}</span>}
+            {fileInfo && (
+              <span className="text-zinc-400 text-xs font-mono">
+                {fileInfo.name} ({formatBytes(fileInfo.size)})
+              </span>
+            )}
           </div>
+
+          {hashing && (
+            <div className="mb-4">
+              <div className="flex items-center justify-between text-xs text-zinc-400 mb-1">
+                <span>Hashing...</span>
+                {progress && (
+                  <span>
+                    {formatBytes(progress.processed)} / {formatBytes(progress.total)}
+                  </span>
+                )}
+              </div>
+              <div className="w-full h-2 bg-zinc-800 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-red-500 to-red-600 transition-all duration-150"
+                  style={{ width: `${progress ? progressPercent : 100}%` }}
+                />
+              </div>
+            </div>
+          )}
+
+          {hashError && <p className="text-red-400 text-sm mb-4">Error: {hashError}</p>}
 
           {result && (
             <div className="bg-black rounded-lg border border-zinc-700 p-4 font-mono text-sm space-y-1">
@@ -150,7 +199,7 @@ export default function Crc32cDemo() {
               </div>
               <div className="flex justify-between gap-4">
                 <span className="text-zinc-500">Time:</span>
-                <span className="text-zinc-300">{result.ms.toFixed(3)} ms</span>
+                <span className="text-zinc-300">{result.ms.toFixed(0)} ms</span>
               </div>
               <div className="flex justify-between gap-4">
                 <span className="text-zinc-500">Throughput:</span>

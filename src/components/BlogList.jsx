@@ -66,7 +66,7 @@ function BlogList() {
             ← Back
           </Link>
 
-          <h1 className="text-5xl font-bold leading-[1.2] py-1 text-center mb-2 bg-gradient-to-r from-red-500 via-zinc-200 to-red-600 bg-clip-text text-transparent">
+          <h1 className="text-5xl font-bold leading-[1.2] py-1 text-center mb-2 bg-gradient-to-r from-red-600 via-red-400 to-red-700 bg-clip-text text-transparent">
             Blog
           </h1>
           <p className="text-center text-zinc-400 mb-8">Technical writings, tutorials, and thoughts</p>
@@ -130,11 +130,11 @@ function BlogList() {
                 <article
                   key={post.id}
                   onClick={() => navigate(`/blog/${post.slug}`)}
-                  className="bg-zinc-900/60 backdrop-blur-sm rounded-xl p-6 border border-zinc-700 hover:border-red-600 transition cursor-pointer"
+                  className="group bg-zinc-900/60 backdrop-blur-sm rounded-xl p-6 border border-zinc-700 hover:border-red-600 transition cursor-pointer"
                 >
                   <div className="flex items-start justify-between gap-4 mb-3">
                     <div className="flex-1">
-                      <h2 className="text-2xl font-bold mb-2 hover:text-red-400 transition">
+                      <h2 className="text-2xl font-bold mb-2 bg-gradient-to-r from-red-400 via-red-200 to-red-500 bg-clip-text text-transparent group-hover:brightness-125 transition">
                         {post.title}
                       </h2>
                       <div className="flex flex-wrap gap-2 mb-2">

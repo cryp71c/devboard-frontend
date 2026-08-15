@@ -34,11 +34,11 @@ function App() {
 
       {/* Main Content */}
       <div className="relative z-10 text-center space-y-6 px-4">
-        <h1 className="text-5xl font-extrabold leading-[1.2] py-1 text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-zinc-200 to-red-600 drop-shadow-[0_0_25px_rgba(220,38,38,0.35)]">
+        <h1 className="text-5xl font-extrabold leading-[1.2] py-1 text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-red-300 to-red-600 drop-shadow-[0_0_35px_rgba(220,38,38,0.6)]">
           cryp71c
         </h1>
         <p className="text-lg text-zinc-400">
-          Cybersecurity Analyst | Backend Developer | Computer Engineer
+          Offensive Security Analyst | Backend Developer | Computer Engineer
         </p>
         <p className="text-lg text-zinc-400">
           Welcome to my portfolio! Explore my projects, blog, and security work.

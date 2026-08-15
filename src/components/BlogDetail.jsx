@@ -71,7 +71,7 @@ function BlogDetail() {
           <article className="bg-zinc-900/60 backdrop-blur-sm rounded-xl p-8 md:p-12 border border-zinc-700">
             {/* Header */}
             <header className="mb-8 pb-8 border-b border-zinc-700">
-              <h1 className="text-4xl md:text-5xl font-bold leading-[1.2] py-1 mb-4 bg-gradient-to-r from-red-500 via-zinc-200 to-red-600 bg-clip-text text-transparent">
+              <h1 className="text-4xl md:text-5xl font-bold leading-[1.2] py-1 mb-4 bg-gradient-to-r from-red-600 via-red-400 to-red-700 bg-clip-text text-transparent">
                 {post.title}
               </h1>
 

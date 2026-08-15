@@ -35,7 +35,7 @@ function Projects() {
           ← Back
         </Link>
       </div>
-      <h1 className="text-4xl font-bold leading-[1.2] py-1 text-center mb-4 bg-gradient-to-r from-red-500 via-zinc-200 to-red-600 bg-clip-text text-transparent">
+      <h1 className="text-4xl font-bold leading-[1.2] py-1 text-center mb-4 bg-gradient-to-r from-red-600 via-red-400 to-red-700 bg-clip-text text-transparent">
         Projects
       </h1>
       <p className="text-center max-w-2xl mx-auto text-zinc-300 mb-8">

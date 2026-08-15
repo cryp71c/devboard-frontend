@@ -230,7 +230,30 @@ function Projects() {
                 Completed
               </span>
             </div>
-            <p className="text-sm text-gray-400 mt-3 leading-relaxed">
+
+            {/* Board Renders (generated from the KiCad project, real board photos to come) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+              <div className="bg-black rounded-lg border border-gray-700 p-4 flex flex-col items-center">
+                <img
+                  src="/projects/mcp73831-lipo-charger/board-top.svg"
+                  alt="MCP73831 LiPo charger PCB, top copper and silkscreen layers"
+                  className="w-full h-auto"
+                  loading="lazy"
+                />
+                <span className="text-xs text-gray-500 mt-2">Top layer</span>
+              </div>
+              <div className="bg-black rounded-lg border border-gray-700 p-4 flex flex-col items-center">
+                <img
+                  src="/projects/mcp73831-lipo-charger/board-bottom.svg"
+                  alt="MCP73831 LiPo charger PCB, bottom copper and silkscreen layers"
+                  className="w-full h-auto"
+                  loading="lazy"
+                />
+                <span className="text-xs text-gray-500 mt-2">Bottom layer</span>
+              </div>
+            </div>
+
+            <p className="text-sm text-gray-400 mt-4 leading-relaxed">
               My first full PCB design cycle, start to finish — schematic capture, layout, DRC/ERC
               validation, fabrication, and assembly. It's a compact single-cell LiPo charger board built
               around Microchip's MCP73831 linear charge controller, designed as a plug-in power module

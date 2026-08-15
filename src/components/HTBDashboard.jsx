@@ -102,7 +102,7 @@ function HTBDashboard() {
             ← Back
           </Link>
 
-          <h1 className="text-5xl font-bold text-center mb-2 bg-gradient-to-r from-indigo-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+          <h1 className="text-5xl font-bold leading-[1.2] py-1 text-center mb-2 bg-gradient-to-r from-indigo-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
             Security Lab
           </h1>
           <p className="text-center text-gray-400 mb-12">Hack The Box Profile & Achievements</p>

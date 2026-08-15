@@ -34,7 +34,7 @@ function App() {
 
       {/* Main Content */}
       <div className="relative z-10 text-center space-y-6 px-4">
-        <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-500">
+        <h1 className="text-5xl font-extrabold leading-[1.2] py-1 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-500">
           cryp71c
         </h1>
         <p className="text-lg text-gray-400">

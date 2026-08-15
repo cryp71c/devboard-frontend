@@ -1,0 +1,6 @@
+Contact: mailto:security@cryp71c.dev
+Expires: 2027-08-15T00:00:00.000Z
+Encryption: https://cryp71c.dev/pgp-key.asc
+Encryption: openpgp4fpr:3DE2D368E81CC1FC99C046289B13121EAF8BCAB9
+Preferred-Languages: en
+Canonical: https://cryp71c.dev/.well-known/security.txt

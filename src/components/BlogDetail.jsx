@@ -1,4 +1,4 @@
-import { useEffect, useState, lazy, Suspense } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import ReactMarkdown from "react-markdown";
@@ -14,10 +14,6 @@ const highlightOptions = {
   languages: { ...common, x86asm },
   aliases: { x86asm: ["asm"] },
 };
-
-// Lazy-loaded: pulls in a small WASM module, and only the CRC32C post needs
-// it — no reason for every other blog post to fetch it.
-const Crc32cDemo = lazy(() => import("./Crc32cDemo.jsx"));
 
 function BlogDetail() {
   const { slug } = useParams();
@@ -225,15 +221,21 @@ function BlogDetail() {
           </article>
 
           {post.slug === "crc32c-from-scratch-rust-inline-assembly" && (
-            <Suspense
-              fallback={
-                <div className="mt-8 flex items-center justify-center h-24 bg-zinc-900/60 rounded-xl border border-zinc-700">
-                  <div className="h-6 w-6 rounded-full border-2 border-red-500 border-t-transparent animate-spin" />
-                </div>
-              }
-            >
-              <Crc32cDemo />
-            </Suspense>
+            <div className="mt-8 bg-zinc-900/60 backdrop-blur-sm rounded-xl p-6 border border-zinc-700 text-center">
+              <h2 className="text-xl font-bold mb-2 text-red-400">🧪 Try It Yourself</h2>
+              <p className="text-sm text-zinc-400 mb-4 max-w-xl mx-auto">
+                There's a live demo of this exact CRC32C implementation on the Projects page — compiled to
+                WebAssembly and running the real portable algorithm from{" "}
+                <code className="px-1 py-0.5 bg-zinc-950 text-red-300 rounded text-xs font-mono">mmfsr</code>{" "}
+                directly in your browser.
+              </p>
+              <Link
+                to="/projects"
+                className="inline-block px-6 py-3 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 rounded-lg font-medium transition"
+              >
+                Try the Live Demo →
+              </Link>
+            </div>
           )}
 
           {/* Back to Blog */}

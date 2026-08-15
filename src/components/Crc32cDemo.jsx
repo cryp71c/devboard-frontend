@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import init, { crc32c_u32 } from "../wasm/crc32c/crc32c_wasm.js";
 
 // Known CRC32C("123456789") test vector — used to self-check the loaded
@@ -68,18 +69,19 @@ export default function Crc32cDemo() {
   };
 
   return (
-    <div className="bg-zinc-900/60 backdrop-blur-sm rounded-xl p-6 md:p-8 border border-zinc-700 mt-8">
-      <h2 className="text-2xl font-bold mb-2 bg-gradient-to-r from-red-500 via-zinc-200 to-red-600 bg-clip-text text-transparent">
-        🧪 Try It Yourself
-      </h2>
+    <div>
       <p className="text-sm text-zinc-400 mb-4 leading-relaxed">
-        This runs the exact portable CRC32C implementation from the{" "}
+        The exact portable CRC32C implementation from the{" "}
         <code className="px-1 py-0.5 bg-zinc-950 text-red-300 rounded text-xs font-mono">mmfsr</code> project,
         compiled to WebAssembly and executing live in your browser right now — not a simulation. It's the
-        portable path specifically: the hand-written SSE4.2 and ARM CRC-extension assembly from the post use
-        real CPU instructions that don't exist in WebAssembly's instruction set, so there's no honest way to
-        run the hardware-accelerated path in a browser sandbox. What you're about to run is the same reference
-        implementation the blog post's hardware benchmarks are measured against.
+        portable path specifically: the hand-written SSE4.2 and ARM CRC-extension assembly use real CPU
+        instructions that don't exist in WebAssembly's instruction set, so there's no honest way to run the
+        hardware-accelerated path in a browser sandbox. What you're about to run is the same reference
+        implementation the hardware paths are benchmarked against — full story on{" "}
+        <Link to="/blog/crc32c-from-scratch-rust-inline-assembly" className="text-red-400 hover:underline">
+          the blog
+        </Link>
+        .
       </p>
 
       {status === "loading" && (

@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import SpherePackingViewer from "../components/SpherePackingViewer";
 import { CATEGORIES, categoryBadgeClass } from "../utils/categories";
+
+// Lazy-loaded: pulls in a small WASM module. Kept out of the main bundle
+// the same way Projects itself is kept out of every other page's bundle.
+const Crc32cDemo = lazy(() => import("./Crc32cDemo.jsx"));
 
 const PROJECT_CATEGORIES = {
   "sphere-packing": "Personal",
@@ -47,6 +51,30 @@ function Projects() {
         file systems, low-level assembly, and hardware.
       </p>
 
+      {/* Featured: Live WASM Demo — always visible regardless of category filter */}
+      <div className="max-w-7xl mx-auto mb-12 bg-gradient-to-b from-zinc-800 to-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
+        <div className="p-6 pb-0">
+          <div className="flex flex-wrap items-center gap-3 mb-2">
+            <h2 className="text-2xl font-semibold text-red-300">CRC32C — Live in Your Browser</h2>
+            <span className={categoryBadgeClass("Personal")}>Personal</span>
+            <span className="px-3 py-1 bg-yellow-900/50 text-yellow-300 border border-yellow-700 rounded-full text-xs font-semibold whitespace-nowrap">
+              ⭐ Featured
+            </span>
+          </div>
+        </div>
+        <div className="p-6">
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center h-24 bg-black/40 rounded-xl border border-zinc-700">
+                <div className="h-6 w-6 rounded-full border-2 border-red-500 border-t-transparent animate-spin" />
+              </div>
+            }
+          >
+            <Crc32cDemo />
+          </Suspense>
+        </div>
+      </div>
+
       {/* Category Filters */}
       <div className="flex justify-center gap-3 mb-12 flex-wrap">
         <button
@@ -80,219 +108,6 @@ function Projects() {
           <div className="text-center py-12">
             <p className="text-zinc-400 text-lg">No projects in this category yet.</p>
           </div>
-        )}
-
-        {/* Sphere Packing Project Card */}
-        {isVisible("sphere-packing") && (
-        <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
-          <div className="p-6 border-b border-zinc-700">
-            <div className="flex flex-wrap items-center gap-3 mb-2">
-              <h2 className="text-2xl font-semibold text-red-300">Sphere Packing Visualizer</h2>
-              <span className={categoryBadgeClass(PROJECT_CATEGORIES["sphere-packing"])}>
-                {PROJECT_CATEGORIES["sphere-packing"]}
-              </span>
-            </div>
-            <p className="text-sm text-zinc-400 mt-1">
-              Visualizes a 3D sphere packing algorithm using WebGL and Web Workers.
-            </p>
-          </div>
-          <div className="p-6">
-            <SpherePackingViewer />
-          </div>
-        </div>
-        )}
-
-        {/* MmFS Card */}
-        {isVisible("mmfs") && (
-        <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
-          <div className="p-6">
-            <div className="flex flex-wrap items-center gap-3 mb-2">
-              <h2 className="text-2xl font-semibold text-red-300">MmFS — Multimedia File System</h2>
-              <span className={categoryBadgeClass(PROJECT_CATEGORIES.mmfs)}>
-                {PROJECT_CATEGORIES.mmfs}
-              </span>
-              <span className={statusBadgeClass("Completed")}>Completed</span>
-            </div>
-            <p className="text-sm text-zinc-400 mt-3 leading-relaxed">
-              A file system built from scratch in Python for my Data Structures class, designed around
-              one idea: media metadata like image dimensions, audio sample rate, or video duration
-              shouldn't require decoding the whole file every time an application needs it.
-              <br />
-              <br />
-              MmFS extracts that metadata once on ingest and caches it in a dedicated Media Acceleration
-              Table, so later reads and stat calls don't touch the decoder at all. It also implements
-              block allocation, hierarchical directories, multi-block files, symbolic links, and content-
-              signature detection that recognizes formats like PNG, JPEG, WAV, MP4, and ZIP from the
-              actual bytes rather than the file extension. Integrity is checked at three levels — per-
-              block, per-extent, and whole-file — each backed by its own SHA-256.
-              <br />
-              <br />
-              Full write-up — architecture, on-disk layout, and the design decisions behind it — is{" "}
-              <Link to="/blog/mmfs-multimedia-file-system" className="text-red-400 hover:underline">
-                on the blog
-              </Link>. I'm now rewriting the on-disk layer in Rust with hardware-accelerated CRC32C
-              for fast corruption detection — that{" "}
-              <Link to="/blog/crc32c-from-scratch-rust-inline-assembly" className="text-red-400 hover:underline">
-                write-up is here
-              </Link>.
-            </p>
-            <div className="flex flex-wrap gap-2 mt-4">
-              {["Python", "File System Design", "SHA-256", "Media Metadata"].map((tech) => (
-                <span
-                  key={tech}
-                  className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-full text-xs font-medium border border-zinc-600"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-        )}
-
-        {/* Midnight Madness Card */}
-        {isVisible("midnight-madness") && (
-        <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
-          <div className="p-6">
-            <div className="flex flex-wrap items-center gap-3 mb-2">
-              <h2 className="text-2xl font-semibold text-red-300">Midnight Madness — A 64-bit Hash in x86-64 Assembly</h2>
-              <span className={categoryBadgeClass(PROJECT_CATEGORIES["midnight-madness"])}>
-                {PROJECT_CATEGORIES["midnight-madness"]}
-              </span>
-              <span className={statusBadgeClass("Completed")}>Completed</span>
-            </div>
-            <p className="text-sm text-zinc-400 mt-3 leading-relaxed">
-              A side-quest out of MmFS's integrity-checking needs: SHA-256 is great, but it's built to
-              survive an attacker, and most of the time my actual enemy is just a bad copy operation. So
-              I wrote a streaming, non-cryptographic 64-bit hash entirely in x86-64 assembly — constant
-              memory usage, 64 KiB blocks, a C-callable interface, and the same result no matter how Linux
-              splits up the reads. Benchmarked against <code className="px-1 py-0.5 bg-zinc-950 text-red-300 rounded text-xs font-mono">sha256sum</code> on a 256 MB file, it came out
-              about 1.31x faster.
-              <br />
-              <br />
-              Then I ran it through <a href="https://github.com/rurban/smhasher" target="_blank" rel="noopener noreferrer" className="text-red-400 hover:underline">SMHasher</a> and got humbled: the round function
-              (XOR → multiply by an odd constant → rotate) is fully reversible, which means a later word
-              can cancel out the state change from an earlier one. Two equal-length, structured multi-word
-              inputs can collide. Great case study in why "fast" and "well-distributed" aren't the same
-              property — MmFS itself keeps SHA-256 for anything that actually matters.
-              <br />
-              <br />
-              Full write-up — the design, the SMHasher results, and exactly why it fails — is{" "}
-              <Link to="/blog/midnight-madness-64bit-hash" className="text-red-400 hover:underline">
-                on the blog
-              </Link>.
-            </p>
-            <div className="flex flex-wrap gap-2 mt-4">
-              {["x86-64 Assembly", "NASM", "C", "SMHasher", "Hashing"].map((tech) => (
-                <span
-                  key={tech}
-                  className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-full text-xs font-medium border border-zinc-600"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-        )}
-
-        {/* ruff Card */}
-        {isVisible("ruff") && (
-        <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
-          <div className="p-6">
-            <div className="flex flex-wrap items-center gap-3 mb-2">
-              <h2 className="text-2xl font-semibold text-red-300">ruff — A Rust Rewrite of FFUF</h2>
-              <span className={categoryBadgeClass(PROJECT_CATEGORIES.ruff)}>
-                {PROJECT_CATEGORIES.ruff}
-              </span>
-              <span className={statusBadgeClass("In Progress")}>In Progress</span>
-            </div>
-            <pre className="mt-3 p-4 bg-black border border-zinc-800 rounded-lg text-green-400 text-xs font-mono overflow-x-auto leading-tight">
-{`        ____________ _   _______
-        | ___ \\ ___ \\ | | |  ___|
-        | |_/ / |_/ / | | | |_
-        |    /|    /| | | |  _|
-        | |\\ \\| |\\ \\| |_| | |
-        \\_| \\_\\_| \\_|\\___/\\_|
-
-        v0.1`}
-            </pre>
-            <p className="text-sm text-zinc-400 mt-3 leading-relaxed">
-              My attempt at a Rust reimplementation of <a href="https://github.com/ffuf/ffuf" target="_blank" rel="noopener noreferrer" className="text-red-400 hover:underline">FFUF</a>,
-              the Go-based web fuzzer that ships with Kali. Still early, but the directory-fuzzing core
-              works end to end: parse a target URL with a <code className="px-1 py-0.5 bg-zinc-950 text-red-300 rounded text-xs font-mono">FUZZ</code> placeholder,
-              load a wordlist (defaults to Kali's own <code className="px-1 py-0.5 bg-zinc-950 text-red-300 rounded text-xs font-mono">dirbuster/big.txt</code>),
-              percent-encode and substitute each entry into the URL, and fire the requests.
-              <br />
-              <br />
-              The part I actually care about is the threading model. The wordlist gets split into chunks
-              sized to the machine's real core count via <code className="px-1 py-0.5 bg-zinc-950 text-red-300 rounded text-xs font-mono">std::thread::available_parallelism()</code>,
-              each chunk spawns one thread per request, and results come back through an mpsc channel to
-              a single collector on the main thread instead of every worker thread printing on top of
-              each other. There's also a small deliberate delay between spawning each request so it
-              doesn't just carpet-bomb a target the instant it starts.
-              <br />
-              <br />
-              Requests go out over a <code className="px-1 py-0.5 bg-zinc-950 text-red-300 rounded text-xs font-mono">reqwest</code> blocking
-              client configured to accept self-signed certs (common on pentest targets), with a live
-              progress bar and a config banner printed the same way FFUF does it. What's not built yet:
-              vhost fuzzing (the flag is parsed but not wired up), response filtering by size or word
-              count, and FFUF's output formats. Directory fuzzing with real multithreading was the first
-              milestone, and it works.
-            </p>
-            <div className="flex flex-wrap gap-2 mt-4">
-              {["Rust", "CLI Tools", "Multithreading", "Web Fuzzing", "Security Tooling"].map((tech) => (
-                <span
-                  key={tech}
-                  className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-full text-xs font-medium border border-zinc-600"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-            <div className="mt-4">
-              <a
-                href="https://github.com/cryp71c/ruff"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-4 py-2 bg-zinc-800 border border-zinc-600 hover:bg-zinc-700 hover:border-red-600 rounded-lg text-sm font-medium transition"
-              >
-                View on GitHub →
-              </a>
-            </div>
-          </div>
-        </div>
-        )}
-
-        {/* SAML-Delegated LLM Access Card */}
-        {isVisible("saml") && (
-        <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
-          <div className="p-6">
-            <div className="flex flex-wrap items-center gap-3 mb-2">
-              <h2 className="text-2xl font-semibold text-red-300">Safe LLM Workspace Access via SAML Token Delegation</h2>
-              <span className={categoryBadgeClass(PROJECT_CATEGORIES.saml)}>
-                {PROJECT_CATEGORIES.saml}
-              </span>
-              <span className={statusBadgeClass("Early Research")}>Early Research</span>
-            </div>
-            <p className="text-sm text-zinc-400 mt-3 leading-relaxed">
-              Most approaches to giving an LLM agent access to company systems mint it a new, standalone
-              service identity — which usually ends up either over-privileged or stuck maintaining its
-              own parallel permission model alongside the RBAC/SSO the company already has.
-              <br />
-              <br />
-              I'm exploring an alternative: instead of a separate identity for the AI, the agent operates
-              under a duplicated/scoped SAML token derived from the requesting user's own existing SSO
-              session. The LLM never gets more access than the human it's acting for already has, and it
-              rides on the SAML-based access control infrastructure that's already in place rather than
-              introducing a new trust boundary.
-              <br />
-              <br />
-              Still in the design/research phase — no public demo yet. I'll post findings and a writeup
-              on the <Link to="/blog" className="text-red-400 hover:underline">blog</Link> as it develops.
-            </p>
-          </div>
-        </div>
         )}
 
         {/* MCP73831 LiPo Charger Card */}
@@ -373,6 +188,219 @@ function Projects() {
                 View on GitHub →
               </a>
             </div>
+          </div>
+        </div>
+        )}
+
+        {/* Midnight Madness Card */}
+        {isVisible("midnight-madness") && (
+        <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
+          <div className="p-6">
+            <div className="flex flex-wrap items-center gap-3 mb-2">
+              <h2 className="text-2xl font-semibold text-red-300">Midnight Madness — A 64-bit Hash in x86-64 Assembly</h2>
+              <span className={categoryBadgeClass(PROJECT_CATEGORIES["midnight-madness"])}>
+                {PROJECT_CATEGORIES["midnight-madness"]}
+              </span>
+              <span className={statusBadgeClass("Completed")}>Completed</span>
+            </div>
+            <p className="text-sm text-zinc-400 mt-3 leading-relaxed">
+              A side-quest out of MmFS's integrity-checking needs: SHA-256 is great, but it's built to
+              survive an attacker, and most of the time my actual enemy is just a bad copy operation. So
+              I wrote a streaming, non-cryptographic 64-bit hash entirely in x86-64 assembly — constant
+              memory usage, 64 KiB blocks, a C-callable interface, and the same result no matter how Linux
+              splits up the reads. Benchmarked against <code className="px-1 py-0.5 bg-zinc-950 text-red-300 rounded text-xs font-mono">sha256sum</code> on a 256 MB file, it came out
+              about 1.31x faster.
+              <br />
+              <br />
+              Then I ran it through <a href="https://github.com/rurban/smhasher" target="_blank" rel="noopener noreferrer" className="text-red-400 hover:underline">SMHasher</a> and got humbled: the round function
+              (XOR → multiply by an odd constant → rotate) is fully reversible, which means a later word
+              can cancel out the state change from an earlier one. Two equal-length, structured multi-word
+              inputs can collide. Great case study in why "fast" and "well-distributed" aren't the same
+              property — MmFS itself keeps SHA-256 for anything that actually matters.
+              <br />
+              <br />
+              Full write-up — the design, the SMHasher results, and exactly why it fails — is{" "}
+              <Link to="/blog/midnight-madness-64bit-hash" className="text-red-400 hover:underline">
+                on the blog
+              </Link>.
+            </p>
+            <div className="flex flex-wrap gap-2 mt-4">
+              {["x86-64 Assembly", "NASM", "C", "SMHasher", "Hashing"].map((tech) => (
+                <span
+                  key={tech}
+                  className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-full text-xs font-medium border border-zinc-600"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+        )}
+
+        {/* Sphere Packing Project Card */}
+        {isVisible("sphere-packing") && (
+        <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
+          <div className="p-6 border-b border-zinc-700">
+            <div className="flex flex-wrap items-center gap-3 mb-2">
+              <h2 className="text-2xl font-semibold text-red-300">Sphere Packing Visualizer</h2>
+              <span className={categoryBadgeClass(PROJECT_CATEGORIES["sphere-packing"])}>
+                {PROJECT_CATEGORIES["sphere-packing"]}
+              </span>
+            </div>
+            <p className="text-sm text-zinc-400 mt-1">
+              Visualizes a 3D sphere packing algorithm using WebGL and Web Workers.
+            </p>
+          </div>
+          <div className="p-6">
+            <SpherePackingViewer />
+          </div>
+        </div>
+        )}
+
+        {/* ruff Card */}
+        {isVisible("ruff") && (
+        <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
+          <div className="p-6">
+            <div className="flex flex-wrap items-center gap-3 mb-2">
+              <h2 className="text-2xl font-semibold text-red-300">ruff — A Rust Rewrite of FFUF</h2>
+              <span className={categoryBadgeClass(PROJECT_CATEGORIES.ruff)}>
+                {PROJECT_CATEGORIES.ruff}
+              </span>
+              <span className={statusBadgeClass("In Progress")}>In Progress</span>
+            </div>
+            <pre className="mt-3 p-4 bg-black border border-zinc-800 rounded-lg text-green-400 text-xs font-mono overflow-x-auto leading-tight">
+{`        ____________ _   _______
+        | ___ \\ ___ \\ | | |  ___|
+        | |_/ / |_/ / | | | |_
+        |    /|    /| | | |  _|
+        | |\\ \\| |\\ \\| |_| | |
+        \\_| \\_\\_| \\_|\\___/\\_|
+
+        v0.1`}
+            </pre>
+            <p className="text-sm text-zinc-400 mt-3 leading-relaxed">
+              My attempt at a Rust reimplementation of <a href="https://github.com/ffuf/ffuf" target="_blank" rel="noopener noreferrer" className="text-red-400 hover:underline">FFUF</a>,
+              the Go-based web fuzzer that ships with Kali. Still early, but the directory-fuzzing core
+              works end to end: parse a target URL with a <code className="px-1 py-0.5 bg-zinc-950 text-red-300 rounded text-xs font-mono">FUZZ</code> placeholder,
+              load a wordlist (defaults to Kali's own <code className="px-1 py-0.5 bg-zinc-950 text-red-300 rounded text-xs font-mono">dirbuster/big.txt</code>),
+              percent-encode and substitute each entry into the URL, and fire the requests.
+              <br />
+              <br />
+              The part I actually care about is the threading model. The wordlist gets split into chunks
+              sized to the machine's real core count via <code className="px-1 py-0.5 bg-zinc-950 text-red-300 rounded text-xs font-mono">std::thread::available_parallelism()</code>,
+              each chunk spawns one thread per request, and results come back through an mpsc channel to
+              a single collector on the main thread instead of every worker thread printing on top of
+              each other. There's also a small deliberate delay between spawning each request so it
+              doesn't just carpet-bomb a target the instant it starts.
+              <br />
+              <br />
+              Requests go out over a <code className="px-1 py-0.5 bg-zinc-950 text-red-300 rounded text-xs font-mono">reqwest</code> blocking
+              client configured to accept self-signed certs (common on pentest targets), with a live
+              progress bar and a config banner printed the same way FFUF does it. What's not built yet:
+              vhost fuzzing (the flag is parsed but not wired up), response filtering by size or word
+              count, and FFUF's output formats. Directory fuzzing with real multithreading was the first
+              milestone, and it works.
+            </p>
+            <div className="flex flex-wrap gap-2 mt-4">
+              {["Rust", "CLI Tools", "Multithreading", "Web Fuzzing", "Security Tooling"].map((tech) => (
+                <span
+                  key={tech}
+                  className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-full text-xs font-medium border border-zinc-600"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+            <div className="mt-4">
+              <a
+                href="https://github.com/cryp71c/ruff"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-4 py-2 bg-zinc-800 border border-zinc-600 hover:bg-zinc-700 hover:border-red-600 rounded-lg text-sm font-medium transition"
+              >
+                View on GitHub →
+              </a>
+            </div>
+          </div>
+        </div>
+        )}
+
+        {/* MmFS Card */}
+        {isVisible("mmfs") && (
+        <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
+          <div className="p-6">
+            <div className="flex flex-wrap items-center gap-3 mb-2">
+              <h2 className="text-2xl font-semibold text-red-300">MmFS — Multimedia File System</h2>
+              <span className={categoryBadgeClass(PROJECT_CATEGORIES.mmfs)}>
+                {PROJECT_CATEGORIES.mmfs}
+              </span>
+              <span className={statusBadgeClass("Completed")}>Completed</span>
+            </div>
+            <p className="text-sm text-zinc-400 mt-3 leading-relaxed">
+              A file system built from scratch in Python for my Data Structures class, designed around
+              one idea: media metadata like image dimensions, audio sample rate, or video duration
+              shouldn't require decoding the whole file every time an application needs it.
+              <br />
+              <br />
+              MmFS extracts that metadata once on ingest and caches it in a dedicated Media Acceleration
+              Table, so later reads and stat calls don't touch the decoder at all. It also implements
+              block allocation, hierarchical directories, multi-block files, symbolic links, and content-
+              signature detection that recognizes formats like PNG, JPEG, WAV, MP4, and ZIP from the
+              actual bytes rather than the file extension. Integrity is checked at three levels — per-
+              block, per-extent, and whole-file — each backed by its own SHA-256.
+              <br />
+              <br />
+              Full write-up — architecture, on-disk layout, and the design decisions behind it — is{" "}
+              <Link to="/blog/mmfs-multimedia-file-system" className="text-red-400 hover:underline">
+                on the blog
+              </Link>. I'm now rewriting the on-disk layer in Rust with hardware-accelerated CRC32C
+              for fast corruption detection — that{" "}
+              <Link to="/blog/crc32c-from-scratch-rust-inline-assembly" className="text-red-400 hover:underline">
+                write-up is here
+              </Link>.
+            </p>
+            <div className="flex flex-wrap gap-2 mt-4">
+              {["Python", "File System Design", "SHA-256", "Media Metadata"].map((tech) => (
+                <span
+                  key={tech}
+                  className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-full text-xs font-medium border border-zinc-600"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+        )}
+
+        {/* SAML-Delegated LLM Access Card */}
+        {isVisible("saml") && (
+        <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
+          <div className="p-6">
+            <div className="flex flex-wrap items-center gap-3 mb-2">
+              <h2 className="text-2xl font-semibold text-red-300">Safe LLM Workspace Access via SAML Token Delegation</h2>
+              <span className={categoryBadgeClass(PROJECT_CATEGORIES.saml)}>
+                {PROJECT_CATEGORIES.saml}
+              </span>
+              <span className={statusBadgeClass("Early Research")}>Early Research</span>
+            </div>
+            <p className="text-sm text-zinc-400 mt-3 leading-relaxed">
+              Most approaches to giving an LLM agent access to company systems mint it a new, standalone
+              service identity — which usually ends up either over-privileged or stuck maintaining its
+              own parallel permission model alongside the RBAC/SSO the company already has.
+              <br />
+              <br />
+              I'm exploring an alternative: instead of a separate identity for the AI, the agent operates
+              under a duplicated/scoped SAML token derived from the requesting user's own existing SSO
+              session. The LLM never gets more access than the human it's acting for already has, and it
+              rides on the SAML-based access control infrastructure that's already in place rather than
+              introducing a new trust boundary.
+              <br />
+              <br />
+              Still in the design/research phase — no public demo yet. I'll post findings and a writeup
+              on the <Link to="/blog" className="text-red-400 hover:underline">blog</Link> as it develops.
+            </p>
           </div>
         </div>
         )}

@@ -5,6 +5,11 @@ import RBACLLMTheories from "../components/RBACLLMTheories";
 function Projects() {
   return (
     <div className="min-h-screen bg-gray-900 text-white py-12 px-6">
+      <div className="max-w-7xl mx-auto">
+        <Link to="/" className="text-indigo-500 hover:underline block mb-6">
+          ← Back
+        </Link>
+      </div>
       <h1 className="text-4xl font-bold text-center text-indigo-400 mb-4">
         Projects
       </h1>

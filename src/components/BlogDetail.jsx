@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 function BlogDetail() {
   const { slug } = useParams();
@@ -128,6 +129,7 @@ function BlogDetail() {
             {/* Article Content */}
             <div className="prose prose-invert prose-indigo max-w-none">
               <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
                 components={{
                   h1: ({ node, ...props }) => (
                     <h1 className="text-3xl font-bold mt-8 mb-4 text-indigo-400" {...props} />
@@ -172,6 +174,33 @@ function BlogDetail() {
                       className="pl-4 border-l-4 border-indigo-500 italic text-gray-400 my-4"
                       {...props}
                     />
+                  ),
+                  img: ({ node, ...props }) => (
+                    <img
+                      className="mx-auto my-6 rounded-lg border border-gray-700 bg-white p-2"
+                      loading="lazy"
+                      {...props}
+                    />
+                  ),
+                  table: ({ node, ...props }) => (
+                    <div className="mb-4 overflow-x-auto rounded-lg border border-gray-700">
+                      <table className="w-full text-sm text-left border-collapse" {...props} />
+                    </div>
+                  ),
+                  thead: ({ node, ...props }) => (
+                    <thead className="bg-gray-900/70 text-indigo-300" {...props} />
+                  ),
+                  tbody: ({ node, ...props }) => (
+                    <tbody className="divide-y divide-gray-700" {...props} />
+                  ),
+                  tr: ({ node, ...props }) => (
+                    <tr className="hover:bg-gray-900/40" {...props} />
+                  ),
+                  th: ({ node, ...props }) => (
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap" {...props} />
+                  ),
+                  td: ({ node, ...props }) => (
+                    <td className="px-4 py-2 text-gray-300 whitespace-nowrap" {...props} />
                   ),
                 }}
               >

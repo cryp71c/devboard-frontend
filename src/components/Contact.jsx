@@ -244,14 +244,6 @@ function Contact() {
             >
               GitHub
             </a>
-            <a
-              href="https://www.linkedin.com/in/alex-rapino/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-lg font-medium transition"
-            >
-              LinkedIn
-            </a>
           </div>
         </div>
       </div>

@@ -35,13 +35,13 @@ function App() {
       {/* Main Content */}
       <div className="relative z-10 text-center space-y-6 px-4">
         <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-500">
-          Alex Rapino
+          cryp71c
         </h1>
         <p className="text-lg text-gray-400">
           Cybersecurity Analyst | Backend Developer | Computer Engineer
         </p>
         <p className="text-lg text-gray-400">
-          Welcome to my portfolio! Explore my experiences, projects, and resume.
+          Welcome to my portfolio! Explore my projects, blog, and security work.
           <br />
           Click the buttons below to navigate.
           <br />
@@ -49,12 +49,6 @@ function App() {
         </p>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
-          <button
-            onClick={() => handleClick("/experiences")}
-            className="bg-indigo-600 px-5 py-2 rounded text-white hover:bg-indigo-700 transition"
-          >
-            Experiences
-          </button>
           <button
             onClick={() => handleClick("/projects")}
             className="bg-indigo-600 px-5 py-2 rounded text-white hover:bg-indigo-700 transition"
@@ -90,12 +84,6 @@ function App() {
             className="bg-indigo-600 px-5 py-2 rounded text-white hover:bg-indigo-700 transition"
           >
             Contact
-          </button>
-          <button
-            onClick={() => handleClick("/resume")}
-            className="bg-indigo-600 px-5 py-2 rounded text-white hover:bg-indigo-700 transition"
-          >
-            Resume
           </button>
         </div>
       </div>

@@ -2,9 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import App from "./App.jsx";
-import ExperienceList from "./components/ExperienceList.jsx";
 import Projects from "./components/Projects.jsx";
-import Resume from "./components/Resume.jsx";
 import HTBDashboard from "./components/HTBDashboard.jsx";
 import HTBWriteupDetail from "./components/HTBWriteupDetail.jsx";
 import BlogList from "./components/BlogList.jsx";
@@ -20,9 +18,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <HashRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/experiences" element={<ExperienceList />} />
         <Route path="/projects" element={<Projects />} />
-        <Route path="/resume" element={<Resume />} />
         <Route path="/htb" element={<HTBDashboard />} />
         <Route path="/htb/writeups/:id" element={<HTBWriteupDetail />} />
         <Route path="/blog" element={<BlogList />} />

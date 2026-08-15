@@ -7,6 +7,7 @@ const PROJECT_CATEGORIES = {
   "sphere-packing": "Personal",
   mmfs: "College",
   "midnight-madness": "College",
+  ruff: "Security Research",
   saml: "Security Research",
   "lipo-charger": "Personal",
 };
@@ -179,6 +180,76 @@ function Projects() {
                   {tech}
                 </span>
               ))}
+            </div>
+          </div>
+        </div>
+        )}
+
+        {/* ruff Card */}
+        {isVisible("ruff") && (
+        <div className="bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+          <div className="p-6">
+            <div className="flex flex-wrap items-center gap-3 mb-2">
+              <h2 className="text-2xl font-semibold text-indigo-300">ruff — A Rust Rewrite of FFUF</h2>
+              <span className={categoryBadgeClass(PROJECT_CATEGORIES.ruff)}>
+                {PROJECT_CATEGORIES.ruff}
+              </span>
+              <span className="px-3 py-1 bg-yellow-900/50 text-yellow-300 border border-yellow-700 rounded-full text-xs font-semibold whitespace-nowrap">
+                In Progress
+              </span>
+            </div>
+            <pre className="mt-3 p-4 bg-black rounded-lg text-green-400 text-xs font-mono overflow-x-auto leading-tight">
+{`        ____________ _   _______
+        | ___ \\ ___ \\ | | |  ___|
+        | |_/ / |_/ / | | | |_
+        |    /|    /| | | |  _|
+        | |\\ \\| |\\ \\| |_| | |
+        \\_| \\_\\_| \\_|\\___/\\_|
+
+        v0.1`}
+            </pre>
+            <p className="text-sm text-gray-400 mt-3 leading-relaxed">
+              My attempt at a Rust reimplementation of <a href="https://github.com/ffuf/ffuf" target="_blank" rel="noopener noreferrer" className="text-indigo-400 hover:underline">FFUF</a>,
+              the Go-based web fuzzer that ships with Kali. Still early, but the directory-fuzzing core
+              works end to end: parse a target URL with a <code className="px-1 py-0.5 bg-gray-900 text-pink-400 rounded text-xs font-mono">FUZZ</code> placeholder,
+              load a wordlist (defaults to Kali's own <code className="px-1 py-0.5 bg-gray-900 text-pink-400 rounded text-xs font-mono">dirbuster/big.txt</code>),
+              percent-encode and substitute each entry into the URL, and fire the requests.
+              <br />
+              <br />
+              The part I actually care about is the threading model. The wordlist gets split into chunks
+              sized to the machine's real core count via <code className="px-1 py-0.5 bg-gray-900 text-pink-400 rounded text-xs font-mono">std::thread::available_parallelism()</code>,
+              each chunk spawns one thread per request, and results come back through an mpsc channel to
+              a single collector on the main thread instead of every worker thread printing on top of
+              each other. There's also a small deliberate delay between spawning each request so it
+              doesn't just carpet-bomb a target the instant it starts.
+              <br />
+              <br />
+              Requests go out over a <code className="px-1 py-0.5 bg-gray-900 text-pink-400 rounded text-xs font-mono">reqwest</code> blocking
+              client configured to accept self-signed certs (common on pentest targets), with a live
+              progress bar and a config banner printed the same way FFUF does it. What's not built yet:
+              vhost fuzzing (the flag is parsed but not wired up), response filtering by size or word
+              count, and FFUF's output formats. Directory fuzzing with real multithreading was the first
+              milestone, and it works.
+            </p>
+            <div className="flex flex-wrap gap-2 mt-4">
+              {["Rust", "CLI Tools", "Multithreading", "Web Fuzzing", "Security Tooling"].map((tech) => (
+                <span
+                  key={tech}
+                  className="px-3 py-1 bg-indigo-900/50 text-indigo-300 rounded-full text-xs font-medium border border-indigo-700"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+            <div className="mt-4">
+              <a
+                href="https://github.com/cryp71c/ruff"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition"
+              >
+                View on GitHub →
+              </a>
             </div>
           </div>
         </div>

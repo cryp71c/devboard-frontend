@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { CATEGORIES, categoryBadgeClass } from "../utils/categories";
 
 function BlogList() {
   const [posts, setPosts] = useState([]);
+  const [categoryFilter, setCategoryFilter] = useState("all");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -27,6 +29,9 @@ function BlogList() {
         setLoading(false);
       });
   }, []);
+
+  const filteredPosts =
+    categoryFilter === "all" ? posts : posts.filter((post) => post.category === categoryFilter);
 
   return (
     <div className="relative min-h-screen bg-gray-900 text-white overflow-hidden">
@@ -74,9 +79,42 @@ function BlogList() {
           <h1 className="text-5xl font-bold leading-[1.2] py-1 text-center mb-2 bg-gradient-to-r from-indigo-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
             Blog
           </h1>
-          <p className="text-center text-gray-400 mb-12">Technical writings, tutorials, and thoughts</p>
+          <p className="text-center text-gray-400 mb-8">Technical writings, tutorials, and thoughts</p>
 
-          {/* Empty State */}
+          {/* Category Filters */}
+          {posts.length > 0 && (
+            <div className="flex justify-center gap-3 mb-8 flex-wrap">
+              <button
+                onClick={() => setCategoryFilter("all")}
+                className={`px-4 py-2 rounded-lg font-medium transition ${
+                  categoryFilter === "all"
+                    ? "bg-indigo-600 text-white"
+                    : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                }`}
+              >
+                All ({posts.length})
+              </button>
+              {CATEGORIES.map((category) => {
+                const count = posts.filter((p) => p.category === category).length;
+                if (count === 0) return null;
+                return (
+                  <button
+                    key={category}
+                    onClick={() => setCategoryFilter(category)}
+                    className={`px-4 py-2 rounded-lg font-medium transition ${
+                      categoryFilter === category
+                        ? "bg-indigo-600 text-white"
+                        : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                    }`}
+                  >
+                    {category} ({count})
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Empty State (no posts at all) */}
           {posts.length === 0 && (
             <div className="text-center py-20">
               <div className="text-6xl mb-4">📝</div>
@@ -88,10 +126,17 @@ function BlogList() {
             </div>
           )}
 
+          {/* Empty State (filter matched nothing) */}
+          {posts.length > 0 && filteredPosts.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-gray-400 text-lg">No posts in this category yet.</p>
+            </div>
+          )}
+
           {/* Blog Posts Grid */}
-          {posts.length > 0 && (
+          {filteredPosts.length > 0 && (
             <div className="space-y-6">
-              {posts.map((post) => (
+              {filteredPosts.map((post) => (
                 <article
                   key={post.id}
                   onClick={() => navigate(`/blog/${post.slug}`)}
@@ -102,11 +147,16 @@ function BlogList() {
                       <h2 className="text-2xl font-bold mb-2 hover:text-indigo-400 transition">
                         {post.title}
                       </h2>
-                      {post.featured && (
-                        <span className="inline-block px-3 py-1 bg-yellow-900/50 text-yellow-300 border border-yellow-700 rounded-full text-xs font-semibold mb-2">
-                          ⭐ Featured
-                        </span>
-                      )}
+                      <div className="flex flex-wrap gap-2 mb-2">
+                        {post.category && (
+                          <span className={categoryBadgeClass(post.category)}>{post.category}</span>
+                        )}
+                        {post.featured && (
+                          <span className="inline-block px-3 py-1 bg-yellow-900/50 text-yellow-300 border border-yellow-700 rounded-full text-xs font-semibold">
+                            ⭐ Featured
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
 

@@ -1,7 +1,20 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import SpherePackingViewer from "../components/SpherePackingViewer";
+import { CATEGORIES, categoryBadgeClass } from "../utils/categories";
+
+const PROJECT_CATEGORIES = {
+  "sphere-packing": "Personal",
+  mmfs: "College",
+  "midnight-madness": "College",
+  saml: "Security Research",
+};
 
 function Projects() {
+  const [categoryFilter, setCategoryFilter] = useState("all");
+
+  const isVisible = (key) => categoryFilter === "all" || PROJECT_CATEGORIES[key] === categoryFilter;
+
   return (
     <div className="min-h-screen bg-gray-900 text-white py-12 px-6">
       <div className="max-w-7xl mx-auto">
@@ -12,16 +25,56 @@ function Projects() {
       <h1 className="text-4xl font-bold text-center text-indigo-400 mb-4">
         Projects
       </h1>
-      <p className="text-center max-w-2xl mx-auto text-gray-300 mb-12">
+      <p className="text-center max-w-2xl mx-auto text-gray-300 mb-8">
         A showcase of interactive, systems-level, and technical projects — algorithms, visuals,
         file systems, and low-level assembly.
       </p>
 
-      {/* Sphere Packing Project Card */}
+      {/* Category Filters */}
+      <div className="flex justify-center gap-3 mb-12 flex-wrap">
+        <button
+          onClick={() => setCategoryFilter("all")}
+          className={`px-4 py-2 rounded-lg font-medium transition ${
+            categoryFilter === "all"
+              ? "bg-indigo-600 text-white"
+              : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+          }`}
+        >
+          All
+        </button>
+        {CATEGORIES.map((category) => (
+          <button
+            key={category}
+            onClick={() => setCategoryFilter(category)}
+            className={`px-4 py-2 rounded-lg font-medium transition ${
+              categoryFilter === category
+                ? "bg-indigo-600 text-white"
+                : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+            }`}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+
       <div className="grid grid-cols-1 gap-10 max-w-7xl mx-auto">
+        {/* Empty State */}
+        {!Object.keys(PROJECT_CATEGORIES).some(isVisible) && (
+          <div className="text-center py-12">
+            <p className="text-gray-400 text-lg">No projects in this category yet.</p>
+          </div>
+        )}
+
+        {/* Sphere Packing Project Card */}
+        {isVisible("sphere-packing") && (
         <div className="bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
           <div className="p-6 border-b border-gray-700">
-            <h2 className="text-2xl font-semibold text-indigo-300">Sphere Packing Visualizer</h2>
+            <div className="flex flex-wrap items-center gap-3 mb-2">
+              <h2 className="text-2xl font-semibold text-indigo-300">Sphere Packing Visualizer</h2>
+              <span className={categoryBadgeClass(PROJECT_CATEGORIES["sphere-packing"])}>
+                {PROJECT_CATEGORIES["sphere-packing"]}
+              </span>
+            </div>
             <p className="text-sm text-gray-400 mt-1">
               Visualizes a 3D sphere packing algorithm using WebGL and Web Workers.
             </p>
@@ -30,12 +83,17 @@ function Projects() {
             <SpherePackingViewer />
           </div>
         </div>
+        )}
 
         {/* MmFS Card */}
+        {isVisible("mmfs") && (
         <div className="bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
           <div className="p-6">
             <div className="flex flex-wrap items-center gap-3 mb-2">
               <h2 className="text-2xl font-semibold text-indigo-300">MmFS — Multimedia File System</h2>
+              <span className={categoryBadgeClass(PROJECT_CATEGORIES.mmfs)}>
+                {PROJECT_CATEGORIES.mmfs}
+              </span>
               <span className="px-3 py-1 bg-green-900/50 text-green-300 border border-green-700 rounded-full text-xs font-semibold whitespace-nowrap">
                 Completed
               </span>
@@ -75,12 +133,17 @@ function Projects() {
             </div>
           </div>
         </div>
+        )}
 
         {/* Midnight Madness Card */}
+        {isVisible("midnight-madness") && (
         <div className="bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
           <div className="p-6">
             <div className="flex flex-wrap items-center gap-3 mb-2">
               <h2 className="text-2xl font-semibold text-indigo-300">Midnight Madness — A 64-bit Hash in x86-64 Assembly</h2>
+              <span className={categoryBadgeClass(PROJECT_CATEGORIES["midnight-madness"])}>
+                {PROJECT_CATEGORIES["midnight-madness"]}
+              </span>
               <span className="px-3 py-1 bg-green-900/50 text-green-300 border border-green-700 rounded-full text-xs font-semibold whitespace-nowrap">
                 Completed
               </span>
@@ -118,12 +181,17 @@ function Projects() {
             </div>
           </div>
         </div>
+        )}
 
         {/* SAML-Delegated LLM Access Card */}
+        {isVisible("saml") && (
         <div className="bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
           <div className="p-6">
             <div className="flex flex-wrap items-center gap-3 mb-2">
               <h2 className="text-2xl font-semibold text-indigo-300">Safe LLM Workspace Access via SAML Token Delegation</h2>
+              <span className={categoryBadgeClass(PROJECT_CATEGORIES.saml)}>
+                {PROJECT_CATEGORIES.saml}
+              </span>
               <span className="px-3 py-1 bg-purple-900/50 text-purple-300 border border-purple-700 rounded-full text-xs font-semibold whitespace-nowrap">
                 Early Research
               </span>
@@ -146,6 +214,7 @@ function Projects() {
             </p>
           </div>
         </div>
+        )}
       </div>
 
       <div className="text-center mt-12">

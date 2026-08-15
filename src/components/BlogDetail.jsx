@@ -151,12 +151,17 @@ function BlogDetail() {
                       {...props}
                     />
                   ),
-                  code: ({ node, inline, ...props }) =>
-                    inline ? (
-                      <code className="px-2 py-1 bg-gray-900 text-pink-400 rounded text-sm font-mono" {...props} />
-                    ) : (
+                  code: ({ node, className, ...props }) => {
+                    // react-markdown v9+ no longer passes an `inline` flag, so block code
+                    // (from ``` fences) is detected by the `language-xxx` class remark
+                    // attaches to it — anything without that class is inline code.
+                    const isBlock = /language-/.test(className || "");
+                    return isBlock ? (
                       <code className="block p-4 bg-gray-900 rounded-lg text-sm font-mono overflow-x-auto" {...props} />
-                    ),
+                    ) : (
+                      <code className="px-2 py-1 bg-gray-900 text-pink-400 rounded text-sm font-mono" {...props} />
+                    );
+                  },
                   pre: ({ node, ...props }) => (
                     <pre className="mb-4 bg-gray-900 rounded-lg overflow-x-auto" {...props} />
                   ),

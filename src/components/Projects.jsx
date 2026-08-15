@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import SpherePackingViewer from "../components/SpherePackingViewer";
 import { CATEGORIES, categoryBadgeClass } from "../utils/categories";
 
@@ -30,6 +31,9 @@ function Projects() {
 
   return (
     <div className="min-h-screen bg-black text-white py-12 px-6">
+      <Helmet>
+        <title>Projects | cryp71c.dev</title>
+      </Helmet>
       <div className="max-w-7xl mx-auto">
         <Link to="/" className="text-red-500 hover:underline block mb-6">
           ← Back

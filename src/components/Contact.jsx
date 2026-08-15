@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -81,6 +82,9 @@ function Contact() {
 
   return (
     <div className="relative min-h-screen bg-black text-white overflow-hidden">
+      <Helmet>
+        <title>Contact | cryp71c.dev</title>
+      </Helmet>
       {/* Content */}
       <div className="relative z-10 max-w-3xl mx-auto px-4 py-12">
         <Link to="/" className="text-red-500 hover:underline block mb-6">

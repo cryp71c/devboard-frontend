@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { CATEGORIES, categoryBadgeClass } from "../utils/categories";
 
 function BlogList() {
@@ -35,6 +36,9 @@ function BlogList() {
 
   return (
     <div className="relative min-h-screen bg-black text-white overflow-hidden">
+      <Helmet>
+        <title>Blog | cryp71c.dev</title>
+      </Helmet>
       {/* Loading State */}
       {loading && (
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">

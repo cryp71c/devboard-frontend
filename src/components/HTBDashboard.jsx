@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 function HTBDashboard() {
   const [profile, setProfile] = useState(null);
@@ -64,6 +65,9 @@ function HTBDashboard() {
 
   return (
     <div className="relative min-h-screen bg-black text-white overflow-hidden">
+      <Helmet>
+        <title>Security Lab | cryp71c.dev</title>
+      </Helmet>
       {/* Loading State */}
       {loading && (
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">

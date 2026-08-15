@@ -1,3 +1,78 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom highlight.js theme for blog/writeup code blocks — kept inside the
+   site's black/red/metal palette instead of using a canned hljs theme.
+   Base text color/background come from the surrounding <code>/<pre>
+   Tailwind classes (bg-zinc-950, text-zinc-300); this only colors tokens. */
+.hljs-comment,
+.hljs-quote {
+  color: #71717a; /* zinc-500 */
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-subst {
+  color: #f87171; /* red-400 */
+  font-weight: 600;
+}
+
+.hljs-string,
+.hljs-doctag,
+.hljs-regexp {
+  color: #fcd34d; /* amber-300 */
+}
+
+.hljs-number,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link {
+  color: #fbbf24; /* amber-400 */
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id,
+.hljs-function .hljs-title {
+  color: #fca5a5; /* red-300 */
+  font-weight: 600;
+}
+
+.hljs-type,
+.hljs-class .hljs-title,
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #fecaca; /* red-200 */
+}
+
+.hljs-attribute,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-attr {
+  color: #fde68a; /* amber-200 */
+}
+
+.hljs-meta {
+  color: #a1a1aa; /* zinc-400 */
+}
+
+.hljs-addition {
+  color: #4ade80; /* green-400 */
+  background: rgba(21, 128, 61, 0.15);
+}
+
+.hljs-deletion {
+  color: #f87171; /* red-400 */
+  background: rgba(153, 27, 27, 0.2);
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: 700;
+}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,6 +19,9 @@ function App() {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden">
+      <Helmet>
+        <title>cryp71c — Offensive Security Analyst & Backend Developer</title>
+      </Helmet>
       {/* Orb Container - Forces perfect centering */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
         <div
@@ -68,10 +72,10 @@ function App() {
             Security Lab
           </button>
           <button
-            onClick={() => handleClick("/certifications")}
+            onClick={() => handleClick("/credentials")}
             className="w-56 bg-gradient-to-b from-red-500 to-red-800 border border-red-900/60 px-5 py-2 rounded text-white font-medium shadow-lg shadow-red-950/50 hover:from-red-400 hover:to-red-700 transition"
           >
-            Certifications
+            Credentials
           </button>
           <button
             onClick={() => handleClick("/contact")}

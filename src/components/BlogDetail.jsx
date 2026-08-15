@@ -1,7 +1,19 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeHighlight from "rehype-highlight";
+import { common } from "lowlight";
+import x86asm from "highlight.js/lib/languages/x86asm";
+
+// highlight.js's "common" bundle doesn't include assembly, but two of the
+// three posts on this site are largely x86-64 assembly — register it
+// explicitly under the `asm` alias used in the posts' ```asm fences.
+const highlightOptions = {
+  languages: { ...common, x86asm },
+  aliases: { x86asm: ["asm"] },
+};
 
 function BlogDetail() {
   const { slug } = useParams();
@@ -37,6 +49,9 @@ function BlogDetail() {
 
   return (
     <div className="relative min-h-screen bg-black text-white overflow-hidden">
+      <Helmet>
+        <title>{post ? `${post.title} | cryp71c.dev` : "Blog | cryp71c.dev"}</title>
+      </Helmet>
       {/* Loading State */}
       {loading && (
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
@@ -120,6 +135,7 @@ function BlogDetail() {
             <div className="prose prose-invert prose-red max-w-none">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
+                rehypePlugins={[[rehypeHighlight, highlightOptions]]}
                 components={{
                   h1: ({ node, ...props }) => (
                     <h1 className="text-3xl font-bold mt-8 mb-4 text-red-400" {...props} />

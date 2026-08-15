@@ -8,6 +8,7 @@ const PROJECT_CATEGORIES = {
   mmfs: "College",
   "midnight-madness": "College",
   saml: "Security Research",
+  "lipo-charger": "Personal",
 };
 
 function Projects() {
@@ -27,7 +28,7 @@ function Projects() {
       </h1>
       <p className="text-center max-w-2xl mx-auto text-gray-300 mb-8">
         A showcase of interactive, systems-level, and technical projects — algorithms, visuals,
-        file systems, and low-level assembly.
+        file systems, low-level assembly, and hardware.
       </p>
 
       {/* Category Filters */}
@@ -212,6 +213,67 @@ function Projects() {
               Still in the design/research phase — no public demo yet. I'll post findings and a writeup
               on the <Link to="/blog" className="text-indigo-400 hover:underline">blog</Link> as it develops.
             </p>
+          </div>
+        </div>
+        )}
+
+        {/* MCP73831 LiPo Charger Card */}
+        {isVisible("lipo-charger") && (
+        <div className="bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+          <div className="p-6">
+            <div className="flex flex-wrap items-center gap-3 mb-2">
+              <h2 className="text-2xl font-semibold text-indigo-300">MCP73831 LiPo Charger Module</h2>
+              <span className={categoryBadgeClass(PROJECT_CATEGORIES["lipo-charger"])}>
+                {PROJECT_CATEGORIES["lipo-charger"]}
+              </span>
+              <span className="px-3 py-1 bg-green-900/50 text-green-300 border border-green-700 rounded-full text-xs font-semibold whitespace-nowrap">
+                Completed
+              </span>
+            </div>
+            <p className="text-sm text-gray-400 mt-3 leading-relaxed">
+              My first full PCB design cycle, start to finish — schematic capture, layout, DRC/ERC
+              validation, fabrication, and assembly. It's a compact single-cell LiPo charger board built
+              around Microchip's MCP73831 linear charge controller, designed as a plug-in power module
+              for a larger handheld project I'm building.
+              <br />
+              <br />
+              The scope was deliberately small: charge a single-cell LiPo safely over USB with a minimal
+              component count, through-hole connectors so it's easy to prototype on a breadboard first,
+              and a compact enough footprint to mount as a module later. MCP73831 in a SOT-23-5 package,
+              a 10 kΩ RPROG resistor setting ~100 mA charge current, a JST-PH battery connector, a 5V
+              input header, a broken-out STAT pin for charge monitoring, and a ground pour for current
+              return and thermal spreading on a 2-layer board.
+              <br />
+              <br />
+              DRC/ERC came back clean — zero unconnected pads, zero footprint errors, just a handful of
+              cosmetic silkscreen-overlap warnings. Fabricated through JLCPCB, parts from DigiKey,
+              hand-soldered and continuity-tested. It wasn't perfect on the first pass — I'd size the
+              power traces wider now that I actually understand how much heat a linear charger dissipates
+              as <code className="px-1 py-0.5 bg-gray-900 text-pink-400 rounded text-xs font-mono">(Vin − Vbat) × current</code>,
+              and SOT-23 packages are a lot smaller in your hands than they look in CAD. But it charges a
+              battery, terminates around 4.2V, and the IC stays warm without cooking itself — exactly what
+              a first PCB needs to do.
+            </p>
+            <div className="flex flex-wrap gap-2 mt-4">
+              {["KiCad", "PCB Design", "Hardware", "Power Electronics"].map((tech) => (
+                <span
+                  key={tech}
+                  className="px-3 py-1 bg-indigo-900/50 text-indigo-300 rounded-full text-xs font-medium border border-indigo-700"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+            <div className="mt-4">
+              <a
+                href="https://github.com/cryp71c/mcp73831-lipo-charger-module"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition"
+              >
+                View on GitHub →
+              </a>
+            </div>
           </div>
         </div>
         )}

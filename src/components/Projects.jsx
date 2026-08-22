@@ -374,18 +374,22 @@ function Projects() {
         </div>
         )}
 
-        {/* SAML-Delegated LLM Access Card */}
+        {/* SAML-Delegated LLM Access Card — deliberately lighter treatment
+            (dashed border, no drop shadow, dimmer fill) than the finished
+            projects above: it's a design idea with no repo/demo/writeup to
+            click into yet, and shouldn't visually compete with the ones
+            that do. */}
         {isVisible("saml") && (
-        <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
+        <div className="bg-zinc-950/40 border border-dashed border-zinc-700 rounded-2xl overflow-hidden">
           <div className="p-6">
             <div className="flex flex-wrap items-center gap-3 mb-2">
-              <h2 className="text-2xl font-semibold text-red-300">Safe LLM Workspace Access via SAML Token Delegation</h2>
+              <h2 className="text-2xl font-semibold text-zinc-300">💡 Safe LLM Workspace Access via SAML Token Delegation</h2>
               <span className={categoryBadgeClass(PROJECT_CATEGORIES.saml)}>
                 {PROJECT_CATEGORIES.saml}
               </span>
               <span className={statusBadgeClass("Early Research")}>Early Research</span>
             </div>
-            <p className="text-sm text-zinc-400 mt-3 leading-relaxed">
+            <p className="text-sm text-zinc-500 mt-3 leading-relaxed">
               Most approaches to giving an LLM agent access to company systems mint it a new, standalone
               service identity — which usually ends up either over-privileged or stuck maintaining its
               own parallel permission model alongside the RBAC/SSO the company already has.

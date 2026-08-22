@@ -9,6 +9,7 @@ import BlogList from "./components/BlogList.jsx";
 import BlogDetail from "./components/BlogDetail.jsx";
 import Contact from "./components/Contact.jsx";
 import Credentials from "./components/Credentials.jsx";
+import Nav from "./components/Nav.jsx";
 import "./index.css";
 
 // Lazy-loaded: Projects pulls in the SpherePackingViewer, which drags in
@@ -25,11 +26,13 @@ function RouteLoadingFallback() {
   );
 }
 
-console.log("React loaded"); // 🔍 does this appear in DevTools?
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <HelmetProvider>
       <BrowserRouter>
+        {/* Rendered once, outside Routes, so it survives navigation instead
+            of remounting on every page. */}
+        <Nav />
         <Suspense fallback={<RouteLoadingFallback />}>
           <Routes>
             <Route path="/" element={<App />} />

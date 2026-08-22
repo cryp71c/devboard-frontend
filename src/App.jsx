@@ -1,33 +1,17 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [orbKey, setOrbKey] = useState(0);
-  const navigate = useNavigate();
-
-  const handleClick = (path) => {
-    if (isLoading) return;
-
-    setIsLoading(true);
-    setOrbKey((prev) => prev + 1); // restart animation
-    setTimeout(() => {
-      navigate(path);
-    }, 2500); // match swirl duration
-  };
-
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden">
       <Helmet>
         <title>cryp71c — Offensive Security Analyst & Backend Developer</title>
       </Helmet>
-      {/* Orb Container - Forces perfect centering */}
+      {/* Orb Container - ambient only now that Nav handles navigation;
+          no click-to-collapse animation gating the actual page change. */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
         <div
-          key={orbKey}
-          className={`w-[400px] h-[400px] rounded-full transition-all duration-500
-            ${isLoading ? "animate-collapse-spin" : "animate-idle-rotate-pulse"}`}
+          className="w-[400px] h-[400px] rounded-full animate-idle-rotate-pulse"
           style={{
             background: "conic-gradient(from 90deg at center, #dc2626, #450a0a, #71717a, #dc2626)",
             filter: "blur(160px) brightness(120%) contrast(130%)",
@@ -44,45 +28,24 @@ function App() {
         <p className="text-lg text-zinc-400">
           Offensive Security Analyst | Backend Developer | Computer Engineer
         </p>
-        <p className="text-lg text-zinc-400">
-          Welcome to my portfolio! Explore my projects, blog, and security work.
-          <br />
-          Click the buttons below to navigate.
-          <br />
-          This site is currently under construction, but feel free to explore!
+        <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
+          Systems programming in Rust and x86-64 assembly, hands-on security research, and real
+          hardware — dig into the write-ups, live demos, and projects below.
         </p>
 
-        <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
-          <button
-            onClick={() => handleClick("/projects")}
-            className="w-56 bg-red-700 bg-gradient-to-b from-red-500 to-red-800 border border-red-900/60 px-5 py-2 rounded text-white font-medium shadow-lg shadow-red-950/50 hover:from-red-400 hover:to-red-700 transition"
+        <div className="flex flex-wrap justify-center gap-4 max-w-xl mx-auto pt-2">
+          <Link
+            to="/projects"
+            className="w-48 bg-red-700 bg-gradient-to-b from-red-500 to-red-800 border border-red-900/60 px-5 py-3 rounded text-white font-medium shadow-lg shadow-red-950/50 hover:from-red-400 hover:to-red-700 transition"
           >
-            Projects
-          </button>
-          <button
-            onClick={() => handleClick("/blog")}
-            className="w-56 bg-red-700 bg-gradient-to-b from-red-500 to-red-800 border border-red-900/60 px-5 py-2 rounded text-white font-medium shadow-lg shadow-red-950/50 hover:from-red-400 hover:to-red-700 transition"
+            View Projects
+          </Link>
+          <Link
+            to="/contact"
+            className="w-48 bg-zinc-900 border border-zinc-700 px-5 py-3 rounded text-white font-medium hover:bg-zinc-800 hover:border-red-600 transition"
           >
-            Blog
-          </button>
-          <button
-            onClick={() => handleClick("/htb")}
-            className="w-56 bg-red-700 bg-gradient-to-b from-red-500 to-red-800 border border-red-900/60 px-5 py-2 rounded text-white font-medium shadow-lg shadow-red-950/50 hover:from-red-400 hover:to-red-700 transition"
-          >
-            HTB Profile
-          </button>
-          <button
-            onClick={() => handleClick("/credentials")}
-            className="w-56 bg-red-700 bg-gradient-to-b from-red-500 to-red-800 border border-red-900/60 px-5 py-2 rounded text-white font-medium shadow-lg shadow-red-950/50 hover:from-red-400 hover:to-red-700 transition"
-          >
-            Credentials
-          </button>
-          <button
-            onClick={() => handleClick("/contact")}
-            className="w-56 bg-red-700 bg-gradient-to-b from-red-500 to-red-800 border border-red-900/60 px-5 py-2 rounded text-white font-medium shadow-lg shadow-red-950/50 hover:from-red-400 hover:to-red-700 transition"
-          >
-            Contact
-          </button>
+            Get In Touch
+          </Link>
         </div>
       </div>
     </div>

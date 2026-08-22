@@ -9,9 +9,7 @@ import BlogList from "./components/BlogList.jsx";
 import BlogDetail from "./components/BlogDetail.jsx";
 import Contact from "./components/Contact.jsx";
 import Credentials from "./components/Credentials.jsx";
-import RetroToggle from "./components/RetroToggle.jsx";
 import "./index.css";
-import "./retro.css";
 
 // Lazy-loaded: Projects pulls in the SpherePackingViewer, which drags in
 // three.js + @react-three/fiber/drei — together the single biggest chunk
@@ -32,9 +30,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <HelmetProvider>
       <BrowserRouter>
-        {/* Rendered once, outside Routes, so it survives navigation instead
-            of remounting (and re-reading localStorage) on every page. */}
-        <RetroToggle />
         <Suspense fallback={<RouteLoadingFallback />}>
           <Routes>
             <Route path="/" element={<App />} />

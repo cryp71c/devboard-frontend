@@ -138,7 +138,7 @@ function BlogList() {
                 >
                   <div className="flex items-start justify-between gap-4 mb-3">
                     <div className="flex-1">
-                      <h2 className="text-2xl font-bold mb-2 bg-gradient-to-r from-red-400 via-red-200 to-red-500 bg-clip-text text-transparent group-hover:brightness-125 transition">
+                      <h2 className="text-2xl font-bold mb-2 text-red-400 group-hover:text-red-300 transition">
                         {post.title}
                       </h2>
                       <div className="flex flex-wrap gap-2 mb-2">

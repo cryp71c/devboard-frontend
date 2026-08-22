@@ -38,6 +38,5 @@ self.onmessage = function (e) {
     }
   }
 
-  console.log("Worker done:", positions.length, "positions");
   postMessage(positions);
 };

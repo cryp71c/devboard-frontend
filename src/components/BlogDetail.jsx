@@ -231,7 +231,7 @@ function BlogDetail() {
               </p>
               <Link
                 to="/projects"
-                className="inline-block px-6 py-3 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 rounded-lg font-medium transition"
+                className="inline-block px-6 py-3 bg-red-600 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 rounded-lg font-medium transition"
               >
                 Try the Live Demo →
               </Link>
@@ -242,7 +242,7 @@ function BlogDetail() {
           <div className="mt-8 text-center">
             <Link
               to="/blog"
-              className="inline-block px-6 py-3 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 rounded-lg font-medium transition"
+              className="inline-block px-6 py-3 bg-red-600 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 rounded-lg font-medium transition"
             >
               ← Back to All Posts
             </Link>

@@ -70,7 +70,7 @@ function BlogList() {
             ← Back
           </Link>
 
-          <h1 className="text-5xl font-bold leading-[1.2] py-1 text-center mb-2 bg-gradient-to-r from-red-600 via-red-400 to-red-700 bg-clip-text text-transparent">
+          <h1 className="text-5xl font-bold leading-[1.2] py-1 text-center mb-2 text-red-400">
             Blog
           </h1>
           <p className="text-center text-zinc-400 mb-8">Technical writings, tutorials, and thoughts</p>
@@ -82,7 +82,7 @@ function BlogList() {
                 onClick={() => setCategoryFilter("all")}
                 className={`px-4 py-2 rounded-lg font-medium transition ${
                   categoryFilter === "all"
-                    ? "bg-gradient-to-b from-red-500 to-red-700 text-white"
+                    ? "bg-red-600 bg-gradient-to-b from-red-500 to-red-700 text-white"
                     : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
                 }`}
               >
@@ -97,7 +97,7 @@ function BlogList() {
                     onClick={() => setCategoryFilter(category)}
                     className={`px-4 py-2 rounded-lg font-medium transition ${
                       categoryFilter === category
-                        ? "bg-gradient-to-b from-red-500 to-red-700 text-white"
+                        ? "bg-red-600 bg-gradient-to-b from-red-500 to-red-700 text-white"
                         : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
                     }`}
                   >

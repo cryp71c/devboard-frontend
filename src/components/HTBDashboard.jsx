@@ -66,7 +66,7 @@ function HTBDashboard() {
   return (
     <div className="relative min-h-screen bg-black text-white overflow-hidden">
       <Helmet>
-        <title>Security Lab | cryp71c.dev</title>
+        <title>HTB Profile | cryp71c.dev</title>
       </Helmet>
       {/* Loading State */}
       {loading && (
@@ -99,13 +99,27 @@ function HTBDashboard() {
             ← Back
           </Link>
 
-          <h1 className="text-5xl font-bold leading-[1.2] py-1 text-center mb-2 bg-gradient-to-r from-red-600 via-red-400 to-red-700 bg-clip-text text-transparent">
-            Security Lab
+          <h1 className="text-5xl font-bold leading-[1.2] py-1 text-center mb-2 text-red-400">
+            HTB Profile
           </h1>
-          <p className="text-center text-zinc-400 mb-12">Hack The Box Profile & Achievements</p>
+          <p className="text-center text-zinc-400 mb-1">Hack The Box account stats & selected write-ups</p>
+          {profile.profile_url && (
+            <p className="text-center text-xs text-zinc-500 mb-8">
+              Career totals from my live{" "}
+              <a
+                href={profile.profile_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-red-400 hover:underline"
+              >
+                HTB profile
+              </a>{" "}
+              — the write-ups below are hand-picked, not every box I've completed.
+            </p>
+          )}
 
           {/* Profile Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <div className="bg-zinc-900/60 backdrop-blur-sm rounded-xl p-6 border border-zinc-700">
               <div className="text-3xl font-bold text-red-400">{profile.rank}</div>
               <div className="text-sm text-zinc-400 mt-1">Current Rank</div>
@@ -124,13 +138,30 @@ function HTBDashboard() {
             </div>
           </div>
 
+          {/* Skills demonstrated in the write-ups below (not HTB's own
+              "top 30%" verified-skill badges — just an honest label) */}
+          {profile.skills && profile.skills.length > 0 && (
+            <div className="flex flex-wrap justify-center gap-2 mb-12">
+              {profile.skills.map((skill) => (
+                <span
+                  key={skill.id}
+                  className="px-3 py-1 bg-zinc-900 text-zinc-300 border border-zinc-700 rounded-full text-xs font-medium"
+                >
+                  {skill.name}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <h2 className="text-2xl font-bold text-center mb-6 text-zinc-200">Featured Write-ups</h2>
+
           {/* Difficulty Filters */}
           <div className="flex justify-center gap-3 mb-8 flex-wrap">
             <button
               onClick={() => setDifficultyFilter("all")}
               className={`px-4 py-2 rounded-lg font-medium transition ${
                 difficultyFilter === "all"
-                  ? "bg-gradient-to-b from-red-500 to-red-700 text-white"
+                  ? "bg-red-600 bg-gradient-to-b from-red-500 to-red-700 text-white"
                   : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
               }`}
             >
@@ -243,7 +274,7 @@ function HTBDashboard() {
                 href={profile.profile_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 text-white px-6 py-3 rounded-lg font-medium transition"
+                className="inline-block bg-red-600 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 text-white px-6 py-3 rounded-lg font-medium transition"
               >
                 View Full HTB Profile →
               </a>

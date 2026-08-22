@@ -91,7 +91,7 @@ function Contact() {
           ← Back
         </Link>
 
-        <h1 className="text-5xl font-bold leading-[1.2] py-1 text-center mb-2 bg-gradient-to-r from-red-600 via-red-400 to-red-700 bg-clip-text text-transparent">
+        <h1 className="text-5xl font-bold leading-[1.2] py-1 text-center mb-2 text-red-400">
           Get In Touch
         </h1>
         <p className="text-center text-zinc-400 mb-12">
@@ -208,7 +208,7 @@ function Contact() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full px-6 py-3 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 disabled:from-zinc-700 disabled:to-zinc-700 disabled:cursor-not-allowed rounded-lg font-medium transition flex items-center justify-center gap-2"
+              className="w-full px-6 py-3 bg-red-600 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 disabled:bg-zinc-700 disabled:from-zinc-700 disabled:to-zinc-700 disabled:cursor-not-allowed rounded-lg font-medium transition flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>

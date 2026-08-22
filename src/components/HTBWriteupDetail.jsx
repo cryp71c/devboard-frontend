@@ -91,7 +91,7 @@ function HTBWriteupDetail() {
   return (
     <div className="relative min-h-screen bg-black text-white overflow-hidden">
       <Helmet>
-        <title>{machine ? `${machine.name} Writeup | cryp71c.dev` : "Security Lab | cryp71c.dev"}</title>
+        <title>{machine ? `${machine.name} Writeup | cryp71c.dev` : "HTB Profile | cryp71c.dev"}</title>
       </Helmet>
       {/* Loading State */}
       {loading && (
@@ -110,7 +110,7 @@ function HTBWriteupDetail() {
             <h2 className="text-lg font-semibold text-red-400">Error Loading Writeup</h2>
             <p className="text-sm text-zinc-300 mt-2">{error}</p>
             <Link to="/htb" className="mt-4 inline-block text-red-400 hover:underline">
-              ← Back to Security Lab
+              ← Back to HTB Profile
             </Link>
           </div>
         </div>
@@ -120,7 +120,7 @@ function HTBWriteupDetail() {
       {!loading && !error && needsKey && (
         <div className="relative z-10 max-w-md mx-auto px-4 py-24">
           <Link to="/htb" className="text-red-500 hover:underline block mb-6">
-            ← Back to Security Lab
+            ← Back to HTB Profile
           </Link>
 
           <div className="bg-zinc-900/60 backdrop-blur-sm rounded-xl p-8 border border-zinc-700 text-center">
@@ -144,7 +144,7 @@ function HTBWriteupDetail() {
               <button
                 type="submit"
                 disabled={unlocking || !keyInput.trim()}
-                className="w-full bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-2 rounded-lg font-medium transition"
+                className="w-full bg-red-600 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-2 rounded-lg font-medium transition"
               >
                 {unlocking ? "Checking..." : "Unlock"}
               </button>
@@ -157,12 +157,12 @@ function HTBWriteupDetail() {
       {!loading && !error && !needsKey && machine && (
         <div className="relative z-10 max-w-4xl mx-auto px-4 py-12">
           <Link to="/htb" className="text-red-500 hover:underline block mb-6">
-            ← Back to Security Lab
+            ← Back to HTB Profile
           </Link>
 
           <article className="bg-zinc-900/60 backdrop-blur-sm rounded-xl p-8 md:p-12 border border-zinc-700">
             <header className="mb-8 pb-8 border-b border-zinc-700">
-              <h1 className="text-4xl md:text-5xl font-bold leading-[1.2] py-1 mb-4 bg-gradient-to-r from-red-600 via-red-400 to-red-700 bg-clip-text text-transparent">
+              <h1 className="text-4xl md:text-5xl font-bold leading-[1.2] py-1 mb-4 text-red-400">
                 {machine.name}
               </h1>
 
@@ -257,9 +257,9 @@ function HTBWriteupDetail() {
           <div className="mt-8 text-center">
             <Link
               to="/htb"
-              className="inline-block px-6 py-3 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 rounded-lg font-medium transition"
+              className="inline-block px-6 py-3 bg-red-600 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 rounded-lg font-medium transition"
             >
-              ← Back to Security Lab
+              ← Back to HTB Profile
             </Link>
           </div>
         </div>

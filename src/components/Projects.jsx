@@ -43,7 +43,7 @@ function Projects() {
           ← Back
         </Link>
       </div>
-      <h1 className="text-4xl font-bold leading-[1.2] py-1 text-center mb-4 bg-gradient-to-r from-red-600 via-red-400 to-red-700 bg-clip-text text-transparent">
+      <h1 className="text-4xl font-bold leading-[1.2] py-1 text-center mb-4 text-red-400">
         Projects
       </h1>
       <p className="text-center max-w-2xl mx-auto text-zinc-300 mb-8">
@@ -81,7 +81,7 @@ function Projects() {
           onClick={() => setCategoryFilter("all")}
           className={`px-4 py-2 rounded-lg font-medium transition ${
             categoryFilter === "all"
-              ? "bg-gradient-to-b from-red-500 to-red-700 text-white"
+              ? "bg-red-600 bg-gradient-to-b from-red-500 to-red-700 text-white"
               : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
           }`}
         >
@@ -93,7 +93,7 @@ function Projects() {
             onClick={() => setCategoryFilter(category)}
             className={`px-4 py-2 rounded-lg font-medium transition ${
               categoryFilter === category
-                ? "bg-gradient-to-b from-red-500 to-red-700 text-white"
+                ? "bg-red-600 bg-gradient-to-b from-red-500 to-red-700 text-white"
                 : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
             }`}
           >
@@ -409,7 +409,7 @@ function Projects() {
       <div className="text-center mt-12">
         <Link
           to="/"
-          className="inline-block px-5 py-2 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 rounded-md transition"
+          className="inline-block px-5 py-2 bg-red-600 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 rounded-md transition"
         >
           Back to Home
         </Link>

@@ -38,7 +38,7 @@ function App() {
 
       {/* Main Content */}
       <div className="relative z-10 text-center space-y-6 px-4">
-        <h1 className="text-5xl font-extrabold leading-[1.2] py-1 text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-red-300 to-red-600 drop-shadow-[0_0_35px_rgba(220,38,38,0.6)]">
+        <h1 className="text-5xl font-extrabold leading-[1.2] py-1 text-red-400 drop-shadow-[0_0_35px_rgba(220,38,38,0.6)]">
           cryp71c
         </h1>
         <p className="text-lg text-zinc-400">
@@ -55,31 +55,31 @@ function App() {
         <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
           <button
             onClick={() => handleClick("/projects")}
-            className="w-56 bg-gradient-to-b from-red-500 to-red-800 border border-red-900/60 px-5 py-2 rounded text-white font-medium shadow-lg shadow-red-950/50 hover:from-red-400 hover:to-red-700 transition"
+            className="w-56 bg-red-700 bg-gradient-to-b from-red-500 to-red-800 border border-red-900/60 px-5 py-2 rounded text-white font-medium shadow-lg shadow-red-950/50 hover:from-red-400 hover:to-red-700 transition"
           >
             Projects
           </button>
           <button
             onClick={() => handleClick("/blog")}
-            className="w-56 bg-gradient-to-b from-red-500 to-red-800 border border-red-900/60 px-5 py-2 rounded text-white font-medium shadow-lg shadow-red-950/50 hover:from-red-400 hover:to-red-700 transition"
+            className="w-56 bg-red-700 bg-gradient-to-b from-red-500 to-red-800 border border-red-900/60 px-5 py-2 rounded text-white font-medium shadow-lg shadow-red-950/50 hover:from-red-400 hover:to-red-700 transition"
           >
             Blog
           </button>
           <button
             onClick={() => handleClick("/htb")}
-            className="w-56 bg-gradient-to-b from-red-500 to-red-800 border border-red-900/60 px-5 py-2 rounded text-white font-medium shadow-lg shadow-red-950/50 hover:from-red-400 hover:to-red-700 transition"
+            className="w-56 bg-red-700 bg-gradient-to-b from-red-500 to-red-800 border border-red-900/60 px-5 py-2 rounded text-white font-medium shadow-lg shadow-red-950/50 hover:from-red-400 hover:to-red-700 transition"
           >
-            Security Lab
+            HTB Profile
           </button>
           <button
             onClick={() => handleClick("/credentials")}
-            className="w-56 bg-gradient-to-b from-red-500 to-red-800 border border-red-900/60 px-5 py-2 rounded text-white font-medium shadow-lg shadow-red-950/50 hover:from-red-400 hover:to-red-700 transition"
+            className="w-56 bg-red-700 bg-gradient-to-b from-red-500 to-red-800 border border-red-900/60 px-5 py-2 rounded text-white font-medium shadow-lg shadow-red-950/50 hover:from-red-400 hover:to-red-700 transition"
           >
             Credentials
           </button>
           <button
             onClick={() => handleClick("/contact")}
-            className="w-56 bg-gradient-to-b from-red-500 to-red-800 border border-red-900/60 px-5 py-2 rounded text-white font-medium shadow-lg shadow-red-950/50 hover:from-red-400 hover:to-red-700 transition"
+            className="w-56 bg-red-700 bg-gradient-to-b from-red-500 to-red-800 border border-red-900/60 px-5 py-2 rounded text-white font-medium shadow-lg shadow-red-950/50 hover:from-red-400 hover:to-red-700 transition"
           >
             Contact
           </button>

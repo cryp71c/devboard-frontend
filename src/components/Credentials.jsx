@@ -98,7 +98,7 @@ function Credentials() {
             ← Back
           </Link>
 
-          <h1 className="text-5xl font-bold leading-[1.2] py-1 text-center mb-2 bg-gradient-to-r from-red-600 via-red-400 to-red-700 bg-clip-text text-transparent">
+          <h1 className="text-5xl font-bold leading-[1.2] py-1 text-center mb-2 text-red-400">
             Credentials
           </h1>
           <p className="text-center text-zinc-400 mb-8">Degrees & Professional Certifications</p>
@@ -110,7 +110,7 @@ function Credentials() {
                 onClick={() => setTypeFilter("all")}
                 className={`px-4 py-2 rounded-lg font-medium transition ${
                   typeFilter === "all"
-                    ? "bg-gradient-to-b from-red-500 to-red-700 text-white"
+                    ? "bg-red-600 bg-gradient-to-b from-red-500 to-red-700 text-white"
                     : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
                 }`}
               >
@@ -125,7 +125,7 @@ function Credentials() {
                     onClick={() => setTypeFilter(type)}
                     className={`px-4 py-2 rounded-lg font-medium transition ${
                       typeFilter === type
-                        ? "bg-gradient-to-b from-red-500 to-red-700 text-white"
+                        ? "bg-red-600 bg-gradient-to-b from-red-500 to-red-700 text-white"
                         : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
                     }`}
                   >
@@ -226,7 +226,7 @@ function Credentials() {
                       href={c.credential_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-block px-4 py-2 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 rounded-lg text-sm font-medium transition"
+                      className="inline-block px-4 py-2 bg-red-600 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 rounded-lg text-sm font-medium transition"
                     >
                       Verify Credential →
                     </a>

@@ -1,12 +1,60 @@
-import { useState, lazy, Suspense } from "react";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import SpherePackingViewer from "../components/SpherePackingViewer";
 import { CATEGORIES, categoryBadgeClass } from "../utils/categories";
 
 // Lazy-loaded: pulls in a small WASM module. Kept out of the main bundle
 // the same way Projects itself is kept out of every other page's bundle.
 const Crc32cDemo = lazy(() => import("./Crc32cDemo.jsx"));
+
+// Lazy-loaded: three.js + @react-three/fiber/drei is the single biggest
+// dependency in the app (~890KB). Only the sphere-packing card needs it, so
+// it's both code-split AND gated behind IntersectionObserver below — a
+// visitor reading the other project cards never pays for it.
+const SpherePackingViewer = lazy(() => import("../components/SpherePackingViewer"));
+
+// Mounts SpherePackingViewer (and triggers its lazy chunk download) only
+// once this section actually scrolls into view, instead of the moment
+// /projects loads.
+function SpherePackingLazySection() {
+  const [visible, setVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    if (visible || !sectionRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" } // start loading slightly before it's on screen
+    );
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, [visible]);
+
+  return (
+    <div ref={sectionRef}>
+      {visible ? (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center h-24 bg-black/40 rounded-xl border border-zinc-700">
+              <div className="h-6 w-6 rounded-full border-2 border-red-500 border-t-transparent animate-spin" />
+            </div>
+          }
+        >
+          <SpherePackingViewer />
+        </Suspense>
+      ) : (
+        <div className="flex items-center justify-center h-24 text-zinc-500 text-sm">
+          Scroll to load the 3D viewer…
+        </div>
+      )}
+    </div>
+  );
+}
 
 const PROJECT_CATEGORIES = {
   "sphere-packing": "Personal",
@@ -253,7 +301,7 @@ function Projects() {
             </p>
           </div>
           <div className="p-6">
-            <SpherePackingViewer />
+            <SpherePackingLazySection />
           </div>
         </div>
         )}

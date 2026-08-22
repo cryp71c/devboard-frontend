@@ -15,22 +15,30 @@ body {
     @apply bg-black border border-red-700 text-red-400 uppercase tracking-wider
       hover:bg-red-950/40 hover:border-red-500 hover:text-red-300
       disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-black
-      disabled:hover:border-red-700 disabled:hover:text-red-400 transition;
+      disabled:hover:border-red-700 disabled:hover:text-red-400 transition
+      focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+      focus-visible:outline-red-500;
   }
 
   .btn-ghost {
     @apply bg-black border border-zinc-700 text-zinc-300 uppercase tracking-wider
-      hover:border-red-600 hover:text-white transition;
+      hover:border-red-600 hover:text-white transition
+      focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+      focus-visible:outline-red-500;
   }
 
   /* Selected/unselected states for filter pills and nav tabs. */
   .tab-active {
-    @apply bg-red-950/30 border border-red-600 text-red-300 uppercase tracking-wider transition;
+    @apply bg-red-950/30 border border-red-600 text-red-300 uppercase tracking-wider transition
+      focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+      focus-visible:outline-red-500;
   }
 
   .tab-inactive {
     @apply bg-black border border-zinc-700 text-zinc-400 uppercase tracking-wider
-      hover:border-zinc-500 hover:text-zinc-200 transition;
+      hover:border-zinc-500 hover:text-zinc-200 transition
+      focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+      focus-visible:outline-red-500;
   }
 }
 

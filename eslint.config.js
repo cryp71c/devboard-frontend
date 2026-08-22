@@ -5,7 +5,9 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  // dist: build output. crc32c_wasm.js: wasm-bindgen-generated glue code,
+  // not hand-written — not ours to lint.
+  globalIgnores(['dist', 'src/wasm/crc32c/crc32c_wasm.js']),
   {
     files: ['**/*.{js,jsx}'],
     extends: [
@@ -23,7 +25,11 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // argsIgnorePattern covers the react-markdown `components` override
+      // convention of destructuring `node` out of props specifically so it
+      // doesn't get spread onto the DOM element (see BlogDetail.jsx,
+      // HTBWriteupDetail.jsx) — the "unused" var there is load-bearing.
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]', argsIgnorePattern: '^node$' }],
     },
   },
 ])

@@ -118,15 +118,14 @@ function HTBDashboard() {
             </p>
           )}
 
-          {/* Profile Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          {/* Profile Stats. No "Total Points" tile: HTB's classic
+              lifetime-points field reads 0 for real accounts now that
+              Seasons/Levels are the primary ranking system, so showing
+              it would just read as broken. */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div className="bg-zinc-900/60 backdrop-blur-sm rounded-xl p-6 border border-zinc-700">
               <div className="text-3xl font-bold text-red-400">{profile.rank}</div>
               <div className="text-sm text-zinc-400 mt-1">Current Rank</div>
-            </div>
-            <div className="bg-zinc-900/60 backdrop-blur-sm rounded-xl p-6 border border-zinc-700">
-              <div className="text-3xl font-bold text-amber-400">{profile.points}</div>
-              <div className="text-sm text-zinc-400 mt-1">Total Points</div>
             </div>
             <div className="bg-zinc-900/60 backdrop-blur-sm rounded-xl p-6 border border-zinc-700">
               <div className="text-3xl font-bold text-green-400">{profile.user_owns}</div>

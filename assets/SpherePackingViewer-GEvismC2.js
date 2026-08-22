@@ -1,4 +1,4 @@
-import{a as vm,g as py,R as Ib,r as ee,j as Jt}from"./index-CXCL3SWf.js";/**
+import{a as vm,g as py,R as Ib,r as ee,j as Jt}from"./index-CTydP7Zq.js";/**
  * @license
  * Copyright 2010-2025 Three.js Authors
  * SPDX-License-Identifier: MIT

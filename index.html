@@ -3,6 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="/icon.png" />
+    <!-- devboard-backend-gnt5.onrender.com is Vite's built-in HTML env substitution, filled in
+         at build time the same way every fetch() call resolves the API
+         host (see src/components/*.jsx: `https://${API_URL}/...`) -
+         avoids hardcoding a domain here that isn't actually in this repo
+         (it's set via the VITE_API_URL GitHub Actions variable). -->
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="cryp71c.dev blog"
+      href="https://devboard-backend-gnt5.onrender.com/blog/rss.xml"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>cryp71c — Offensive Security Analyst & Backend Developer</title>
     <meta
@@ -31,7 +42,9 @@
       property="og:description"
       content="Portfolio and technical blog for cryp71c — offensive security analyst, backend developer, and computer engineer. Systems programming in Rust and x86-64 assembly, HackTheBox writeups, and hands-on security research."
     />
-    <meta property="og:image" content="https://cryp71c.dev/icon.png" />
+    <meta property="og:image" content="https://cryp71c.dev/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     <!-- Twitter / X card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -40,7 +53,7 @@
       name="twitter:description"
       content="Portfolio and technical blog for cryp71c — offensive security analyst, backend developer, and computer engineer. Systems programming in Rust and x86-64 assembly, HackTheBox writeups, and hands-on security research."
     />
-    <meta name="twitter:image" content="https://cryp71c.dev/icon.png" />
+    <meta name="twitter:image" content="https://cryp71c.dev/og-image.png" />
 
     <script type="text/javascript">
       // Single Page Apps for GitHub Pages
@@ -60,8 +73,8 @@
         }
       })(window.location);
     </script>
-    <script type="module" crossorigin src="/assets/index-CXCL3SWf.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DLm0LaW-.css">
+    <script type="module" crossorigin src="/assets/index-CTydP7Zq.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CQPzLKxN.css">
   </head>
   <body>
     <div id="root"></div>

@@ -14,10 +14,10 @@ const statusBadgeClass = (label) => {
     Active: "bg-green-900/50 text-green-300 border-green-700",
     Expired: "bg-red-900/50 text-red-300 border-red-700",
   };
-  return `px-3 py-1 rounded-full text-xs font-semibold border whitespace-nowrap ${styles[label]}`;
+  return `px-3 py-1 rounded-sm text-xs font-semibold border whitespace-nowrap ${styles[label]}`;
 };
 
-const typeBadgeClass = "px-3 py-1 rounded-full text-xs font-semibold border bg-zinc-800 text-zinc-300 border-zinc-500 whitespace-nowrap";
+const typeBadgeClass = "px-3 py-1 rounded-sm text-xs font-semibold border bg-zinc-800 text-zinc-300 border-zinc-500 whitespace-nowrap";
 
 function Credentials() {
   const [credentials, setCredentials] = useState([]);
@@ -108,10 +108,10 @@ function Credentials() {
             <div className="flex justify-center gap-3 mb-8 flex-wrap">
               <button
                 onClick={() => setTypeFilter("all")}
-                className={`px-4 py-2 rounded-lg font-medium transition ${
+                className={`px-4 py-2 text-sm ${
                   typeFilter === "all"
-                    ? "bg-red-600 bg-gradient-to-b from-red-500 to-red-700 text-white"
-                    : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
+                    ? "tab-active"
+                    : "tab-inactive"
                 }`}
               >
                 All ({credentials.length})
@@ -123,10 +123,10 @@ function Credentials() {
                   <button
                     key={type}
                     onClick={() => setTypeFilter(type)}
-                    className={`px-4 py-2 rounded-lg font-medium transition ${
+                    className={`px-4 py-2 text-sm ${
                       typeFilter === type
-                        ? "bg-red-600 bg-gradient-to-b from-red-500 to-red-700 text-white"
-                        : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
+                        ? "tab-active"
+                        : "tab-inactive"
                     }`}
                   >
                     {type}s ({count})
@@ -212,7 +212,7 @@ function Credentials() {
                       {c.skills.map((skill) => (
                         <span
                           key={skill.id}
-                          className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-full text-xs font-medium border border-zinc-600"
+                          className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-sm text-xs font-medium border border-zinc-600"
                         >
                           {skill.name}
                         </span>
@@ -226,7 +226,7 @@ function Credentials() {
                       href={c.credential_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-block px-4 py-2 bg-red-600 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 rounded-lg text-sm font-medium transition"
+                      className="btn-primary inline-block px-4 py-2 text-sm font-medium"
                     >
                       Verify Credential →
                     </a>

@@ -38,13 +38,11 @@ export default function SpherePackingViewer() {
   const [boxHeight, setBoxHeight] = useState(100);
   const [diameter, setDiameter] = useState(10);
   const [positions, setPositions] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   const radius = diameter / 2;
   const sphereLimit = 5000;
 
   const generateSpheres = () => {
-    setIsLoading(true);
     const worker = new Worker("/sphereWorker.js");
     worker.postMessage({
       length: boxLength,
@@ -57,7 +55,6 @@ export default function SpherePackingViewer() {
       const result = e.data;
       const limited = result.slice(0, sphereLimit);
       setPositions(limited);
-      setIsLoading(false);
       worker.terminate();
     };
   };
@@ -141,7 +138,7 @@ export default function SpherePackingViewer() {
         )}
       </div>
 
-      <div className="w-full lg:max-w-sm bg-gradient-to-b from-zinc-800 to-zinc-900 border border-zinc-700 p-6 rounded-xl shadow-md">
+      <div className="w-full lg:max-w-sm bg-zinc-900 border border-zinc-700 p-6 rounded-xl shadow-md">
         <h2 className="text-2xl font-semibold mb-2 text-red-400">About this Project</h2>
         <p className="text-sm text-zinc-300 leading-relaxed">
           This interactive tool demonstrates a <strong>sphere packing algorithm</strong> written in C++ and ported to the web.

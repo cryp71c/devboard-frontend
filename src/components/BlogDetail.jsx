@@ -113,7 +113,7 @@ function BlogDetail() {
                   {post.tags.map((tag, idx) => (
                     <span
                       key={idx}
-                      className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-full text-xs font-medium border border-zinc-600"
+                      className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-sm text-xs font-medium border border-zinc-600"
                     >
                       #{tag}
                     </span>
@@ -124,7 +124,7 @@ function BlogDetail() {
               {/* Featured Badge */}
               {post.featured && (
                 <div className="mt-4">
-                  <span className="inline-block px-3 py-1 bg-yellow-900/50 text-yellow-300 border border-yellow-700 rounded-full text-xs font-semibold">
+                  <span className="inline-block px-3 py-1 bg-yellow-900/50 text-yellow-300 border border-yellow-700 rounded-sm text-xs font-semibold">
                     ⭐ Featured Article
                   </span>
                 </div>
@@ -231,7 +231,7 @@ function BlogDetail() {
               </p>
               <Link
                 to="/projects"
-                className="inline-block px-6 py-3 bg-red-600 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 rounded-lg font-medium transition"
+                className="btn-primary inline-block px-6 py-3 text-sm font-medium"
               >
                 Try the Live Demo →
               </Link>
@@ -242,7 +242,7 @@ function BlogDetail() {
           <div className="mt-8 text-center">
             <Link
               to="/blog"
-              className="inline-block px-6 py-3 bg-red-600 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 rounded-lg font-medium transition"
+              className="btn-primary inline-block px-6 py-3 text-sm font-medium"
             >
               ← Back to All Posts
             </Link>

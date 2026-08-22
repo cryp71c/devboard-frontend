@@ -144,7 +144,7 @@ function HTBDashboard() {
               {profile.skills.map((skill) => (
                 <span
                   key={skill.id}
-                  className="px-3 py-1 bg-zinc-900 text-zinc-300 border border-zinc-700 rounded-full text-xs font-medium"
+                  className="px-3 py-1 bg-zinc-900 text-zinc-300 border border-zinc-700 rounded-sm text-xs font-medium"
                 >
                   {skill.name}
                 </span>
@@ -158,50 +158,50 @@ function HTBDashboard() {
           <div className="flex justify-center gap-3 mb-8 flex-wrap">
             <button
               onClick={() => setDifficultyFilter("all")}
-              className={`px-4 py-2 rounded-lg font-medium transition ${
+              className={`px-4 py-2 text-sm ${
                 difficultyFilter === "all"
-                  ? "bg-red-600 bg-gradient-to-b from-red-500 to-red-700 text-white"
-                  : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
+                  ? "tab-active"
+                  : "tab-inactive"
               }`}
             >
               All ({machines.length})
             </button>
             <button
               onClick={() => setDifficultyFilter("easy")}
-              className={`px-4 py-2 rounded-lg font-medium transition ${
+              className={`px-4 py-2 text-sm ${
                 difficultyFilter === "easy"
                   ? "bg-green-500 text-white"
-                  : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
+                  : "tab-inactive"
               }`}
             >
               Easy ({machines.filter((m) => m.difficulty === "Easy").length})
             </button>
             <button
               onClick={() => setDifficultyFilter("medium")}
-              className={`px-4 py-2 rounded-lg font-medium transition ${
+              className={`px-4 py-2 text-sm ${
                 difficultyFilter === "medium"
                   ? "bg-yellow-500 text-black"
-                  : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
+                  : "tab-inactive"
               }`}
             >
               Medium ({machines.filter((m) => m.difficulty === "Medium").length})
             </button>
             <button
               onClick={() => setDifficultyFilter("hard")}
-              className={`px-4 py-2 rounded-lg font-medium transition ${
+              className={`px-4 py-2 text-sm ${
                 difficultyFilter === "hard"
                   ? "bg-red-500 text-white"
-                  : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
+                  : "tab-inactive"
               }`}
             >
               Hard ({machines.filter((m) => m.difficulty === "Hard").length})
             </button>
             <button
               onClick={() => setDifficultyFilter("insane")}
-              className={`px-4 py-2 rounded-lg font-medium transition ${
+              className={`px-4 py-2 text-sm ${
                 difficultyFilter === "insane"
                   ? "bg-red-950 text-red-300 border border-red-700"
-                  : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
+                  : "tab-inactive"
               }`}
             >
               Insane ({machines.filter((m) => m.difficulty === "Insane").length})
@@ -224,7 +224,7 @@ function HTBDashboard() {
                       <span title="Writeup is access-key protected until this machine retires">🔒</span>
                     )}
                   </div>
-                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getDifficultyColor(machine.difficulty)}`}>
+                  <span className={`px-3 py-1 rounded-sm text-xs font-semibold ${getDifficultyColor(machine.difficulty)}`}>
                     {machine.difficulty}
                   </span>
                 </div>
@@ -273,7 +273,7 @@ function HTBDashboard() {
                 href={profile.profile_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-red-600 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 text-white px-6 py-3 rounded-lg font-medium transition"
+                className="btn-primary inline-block px-6 py-3 text-sm font-medium"
               >
                 View Full HTB Profile →
               </a>

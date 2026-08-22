@@ -144,7 +144,7 @@ function HTBWriteupDetail() {
               <button
                 type="submit"
                 disabled={unlocking || !keyInput.trim()}
-                className="w-full bg-red-600 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 disabled:opacity-50 disabled:cursor-not-allowed text-white px-6 py-2 rounded-lg font-medium transition"
+                className="btn-primary w-full px-6 py-2 text-sm font-medium"
               >
                 {unlocking ? "Checking..." : "Unlock"}
               </button>
@@ -257,7 +257,7 @@ function HTBWriteupDetail() {
           <div className="mt-8 text-center">
             <Link
               to="/htb"
-              className="inline-block px-6 py-3 bg-red-600 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 rounded-lg font-medium transition"
+              className="btn-primary inline-block px-6 py-3 text-sm font-medium"
             >
               ← Back to HTB Profile
             </Link>

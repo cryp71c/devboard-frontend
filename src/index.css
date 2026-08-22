@@ -2,6 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: #000;
+}
+
+@layer components {
+  /* Flat/bordered button language — replaces the earlier glossy red
+     gradients. No gradient, no drop-shadow glow, square corners: reads
+     terminal/operator rather than SaaS-landing-page. Padding/sizing stays
+     per-instance in each caller; this only owns color, border, and type. */
+  .btn-primary {
+    @apply bg-black border border-red-700 text-red-400 uppercase tracking-wider
+      hover:bg-red-950/40 hover:border-red-500 hover:text-red-300
+      disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-black
+      disabled:hover:border-red-700 disabled:hover:text-red-400 transition;
+  }
+
+  .btn-ghost {
+    @apply bg-black border border-zinc-700 text-zinc-300 uppercase tracking-wider
+      hover:border-red-600 hover:text-white transition;
+  }
+
+  /* Selected/unselected states for filter pills and nav tabs. */
+  .tab-active {
+    @apply bg-red-950/30 border border-red-600 text-red-300 uppercase tracking-wider transition;
+  }
+
+  .tab-inactive {
+    @apply bg-black border border-zinc-700 text-zinc-400 uppercase tracking-wider
+      hover:border-zinc-500 hover:text-zinc-200 transition;
+  }
+}
+
 /* Custom highlight.js theme for blog/writeup code blocks — kept inside the
    site's black/red/metal palette instead of using a canned hljs theme.
    Base text color/background come from the surrounding <code>/<pre>

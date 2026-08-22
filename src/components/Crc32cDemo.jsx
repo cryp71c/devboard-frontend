@@ -146,7 +146,7 @@ export default function Crc32cDemo() {
             <button
               onClick={handleHashText}
               disabled={hashing || text.length === 0}
-              className="px-4 py-2 bg-red-600 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 disabled:bg-zinc-700 disabled:from-zinc-700 disabled:to-zinc-700 disabled:cursor-not-allowed rounded-lg text-sm font-medium transition"
+              className="btn-primary px-4 py-2 text-sm font-medium"
             >
               Hash This Text
             </button>

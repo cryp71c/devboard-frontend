@@ -208,7 +208,7 @@ function Contact() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full px-6 py-3 bg-red-600 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 disabled:bg-zinc-700 disabled:from-zinc-700 disabled:to-zinc-700 disabled:cursor-not-allowed rounded-lg font-medium transition flex items-center justify-center gap-2"
+              className="btn-primary w-full px-6 py-3 text-sm font-medium flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
@@ -234,7 +234,7 @@ function Contact() {
               href="https://github.com/cryp71c"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 hover:border-red-600 rounded-lg font-medium transition"
+              className="btn-ghost px-6 py-3 text-sm font-medium"
             >
               GitHub
             </a>

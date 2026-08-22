@@ -29,11 +29,7 @@ function Nav() {
               <Link
                 key={link.to}
                 to={link.to}
-                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${
-                  active
-                    ? "bg-red-600 bg-gradient-to-b from-red-500 to-red-700 text-white"
-                    : "text-zinc-300 hover:text-white hover:bg-zinc-900"
-                }`}
+                className={`px-3 py-1.5 text-sm ${active ? "tab-active" : "text-zinc-300 border border-transparent hover:text-white hover:border-zinc-800"}`}
               >
                 {link.label}
               </Link>

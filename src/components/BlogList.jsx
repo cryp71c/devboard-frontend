@@ -80,11 +80,7 @@ function BlogList() {
             <div className="flex justify-center gap-3 mb-8 flex-wrap">
               <button
                 onClick={() => setCategoryFilter("all")}
-                className={`px-4 py-2 rounded-lg font-medium transition ${
-                  categoryFilter === "all"
-                    ? "bg-red-600 bg-gradient-to-b from-red-500 to-red-700 text-white"
-                    : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
-                }`}
+                className={`px-4 py-2 text-sm ${categoryFilter === "all" ? "tab-active" : "tab-inactive"}`}
               >
                 All ({posts.length})
               </button>
@@ -95,11 +91,7 @@ function BlogList() {
                   <button
                     key={category}
                     onClick={() => setCategoryFilter(category)}
-                    className={`px-4 py-2 rounded-lg font-medium transition ${
-                      categoryFilter === category
-                        ? "bg-red-600 bg-gradient-to-b from-red-500 to-red-700 text-white"
-                        : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
-                    }`}
+                    className={`px-4 py-2 text-sm ${categoryFilter === category ? "tab-active" : "tab-inactive"}`}
                   >
                     {category} ({count})
                   </button>
@@ -146,7 +138,7 @@ function BlogList() {
                           <span className={categoryBadgeClass(post.category)}>{post.category}</span>
                         )}
                         {post.featured && (
-                          <span className="inline-block px-3 py-1 bg-yellow-900/50 text-yellow-300 border border-yellow-700 rounded-full text-xs font-semibold">
+                          <span className="inline-block px-3 py-1 bg-yellow-900/50 text-yellow-300 border border-yellow-700 rounded-sm text-xs font-semibold">
                             ⭐ Featured
                           </span>
                         )}
@@ -162,7 +154,7 @@ function BlogList() {
                       {post.tags.map((tag, idx) => (
                         <span
                           key={idx}
-                          className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-full text-xs font-medium border border-zinc-600"
+                          className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-sm text-xs font-medium border border-zinc-600"
                         >
                           #{tag}
                         </span>

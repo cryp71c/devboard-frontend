@@ -26,7 +26,7 @@ const STATUS_STYLES = {
   "Early Research": "bg-zinc-800 text-zinc-300 border-zinc-500",
 };
 const statusBadgeClass = (status) =>
-  `px-3 py-1 rounded-full text-xs font-semibold border whitespace-nowrap ${STATUS_STYLES[status]}`;
+  `px-3 py-1 rounded-sm text-xs font-semibold border whitespace-nowrap ${STATUS_STYLES[status]}`;
 
 function Projects() {
   const [categoryFilter, setCategoryFilter] = useState("all");
@@ -52,12 +52,12 @@ function Projects() {
       </p>
 
       {/* Featured: Live WASM Demo — always visible regardless of category filter */}
-      <div className="max-w-7xl mx-auto mb-12 bg-gradient-to-b from-zinc-800 to-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
+      <div className="max-w-7xl mx-auto mb-12 bg-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
         <div className="p-6 pb-0">
           <div className="flex flex-wrap items-center gap-3 mb-2">
             <h2 className="text-2xl font-semibold text-red-300">CRC32C — Live in Your Browser</h2>
             <span className={categoryBadgeClass("Personal")}>Personal</span>
-            <span className="px-3 py-1 bg-yellow-900/50 text-yellow-300 border border-yellow-700 rounded-full text-xs font-semibold whitespace-nowrap">
+            <span className="px-3 py-1 bg-yellow-900/50 text-yellow-300 border border-yellow-700 rounded-sm text-xs font-semibold whitespace-nowrap">
               ⭐ Featured
             </span>
           </div>
@@ -79,10 +79,10 @@ function Projects() {
       <div className="flex justify-center gap-3 mb-12 flex-wrap">
         <button
           onClick={() => setCategoryFilter("all")}
-          className={`px-4 py-2 rounded-lg font-medium transition ${
+          className={`px-4 py-2 text-sm ${
             categoryFilter === "all"
-              ? "bg-red-600 bg-gradient-to-b from-red-500 to-red-700 text-white"
-              : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
+              ? "tab-active"
+              : "tab-inactive"
           }`}
         >
           All
@@ -91,10 +91,10 @@ function Projects() {
           <button
             key={category}
             onClick={() => setCategoryFilter(category)}
-            className={`px-4 py-2 rounded-lg font-medium transition ${
+            className={`px-4 py-2 text-sm ${
               categoryFilter === category
-                ? "bg-red-600 bg-gradient-to-b from-red-500 to-red-700 text-white"
-                : "bg-zinc-900 text-zinc-300 border border-zinc-700 hover:bg-zinc-800"
+                ? "tab-active"
+                : "tab-inactive"
             }`}
           >
             {category}
@@ -112,7 +112,7 @@ function Projects() {
 
         {/* MCP73831 LiPo Charger Card */}
         {isVisible("lipo-charger") && (
-        <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
+        <div className="bg-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
           <div className="p-6">
             <div className="flex flex-wrap items-center gap-3 mb-2">
               <h2 className="text-2xl font-semibold text-red-300">MCP73831 LiPo Charger Module</h2>
@@ -172,7 +172,7 @@ function Projects() {
               {["KiCad", "PCB Design", "Hardware", "Power Electronics"].map((tech) => (
                 <span
                   key={tech}
-                  className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-full text-xs font-medium border border-zinc-600"
+                  className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-sm text-xs font-medium border border-zinc-600"
                 >
                   {tech}
                 </span>
@@ -194,7 +194,7 @@ function Projects() {
 
         {/* Midnight Madness Card */}
         {isVisible("midnight-madness") && (
-        <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
+        <div className="bg-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
           <div className="p-6">
             <div className="flex flex-wrap items-center gap-3 mb-2">
               <h2 className="text-2xl font-semibold text-red-300">Midnight Madness — A 64-bit Hash in x86-64 Assembly</h2>
@@ -228,7 +228,7 @@ function Projects() {
               {["x86-64 Assembly", "NASM", "C", "SMHasher", "Hashing"].map((tech) => (
                 <span
                   key={tech}
-                  className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-full text-xs font-medium border border-zinc-600"
+                  className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-sm text-xs font-medium border border-zinc-600"
                 >
                   {tech}
                 </span>
@@ -240,7 +240,7 @@ function Projects() {
 
         {/* Sphere Packing Project Card */}
         {isVisible("sphere-packing") && (
-        <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
+        <div className="bg-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
           <div className="p-6 border-b border-zinc-700">
             <div className="flex flex-wrap items-center gap-3 mb-2">
               <h2 className="text-2xl font-semibold text-red-300">Sphere Packing Visualizer</h2>
@@ -260,7 +260,7 @@ function Projects() {
 
         {/* ruff Card */}
         {isVisible("ruff") && (
-        <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
+        <div className="bg-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
           <div className="p-6">
             <div className="flex flex-wrap items-center gap-3 mb-2">
               <h2 className="text-2xl font-semibold text-red-300">ruff — A Rust Rewrite of FFUF</h2>
@@ -306,7 +306,7 @@ function Projects() {
               {["Rust", "CLI Tools", "Multithreading", "Web Fuzzing", "Security Tooling"].map((tech) => (
                 <span
                   key={tech}
-                  className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-full text-xs font-medium border border-zinc-600"
+                  className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-sm text-xs font-medium border border-zinc-600"
                 >
                   {tech}
                 </span>
@@ -328,7 +328,7 @@ function Projects() {
 
         {/* MmFS Card */}
         {isVisible("mmfs") && (
-        <div className="bg-gradient-to-b from-zinc-800 to-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
+        <div className="bg-zinc-900 border border-zinc-700 rounded-2xl shadow-lg shadow-black/50 overflow-hidden">
           <div className="p-6">
             <div className="flex flex-wrap items-center gap-3 mb-2">
               <h2 className="text-2xl font-semibold text-red-300">MmFS — Multimedia File System</h2>
@@ -364,7 +364,7 @@ function Projects() {
               {["Python", "File System Design", "SHA-256", "Media Metadata"].map((tech) => (
                 <span
                   key={tech}
-                  className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-full text-xs font-medium border border-zinc-600"
+                  className="px-3 py-1 bg-zinc-800 text-zinc-300 rounded-sm text-xs font-medium border border-zinc-600"
                 >
                   {tech}
                 </span>
@@ -413,7 +413,7 @@ function Projects() {
       <div className="text-center mt-12">
         <Link
           to="/"
-          className="inline-block px-5 py-2 bg-red-600 bg-gradient-to-b from-red-500 to-red-700 hover:from-red-400 hover:to-red-600 rounded-md transition"
+          className="btn-primary inline-block px-5 py-2 text-sm"
         >
           Back to Home
         </Link>

@@ -15,6 +15,6 @@ const CATEGORY_STYLES = {
 };
 
 export const categoryBadgeClass = (category) =>
-  `px-3 py-1 rounded-full text-xs font-semibold border whitespace-nowrap ${
+  `px-3 py-1 rounded-sm text-xs font-semibold border whitespace-nowrap ${
     CATEGORY_STYLES[category] || "bg-zinc-800 text-zinc-300 border-zinc-600"
   }`;

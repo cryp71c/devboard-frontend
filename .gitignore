@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# Local env files (e.g. VITE_API_URL during dev) - only *.local was
+# covered before, a plain .env wasn't excluded at all.
+.env
+.env.*
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

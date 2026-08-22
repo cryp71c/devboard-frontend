@@ -26,7 +26,7 @@ function App() {
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
         <div
           key={orbKey}
-          className={`w-[400px] h-[400px] rounded-full transition-all duration-500
+          className={`retro-hide w-[400px] h-[400px] rounded-full transition-all duration-500
             ${isLoading ? "animate-collapse-spin" : "animate-idle-rotate-pulse"}`}
           style={{
             background: "conic-gradient(from 90deg at center, #dc2626, #450a0a, #71717a, #dc2626)",

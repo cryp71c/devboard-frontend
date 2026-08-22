@@ -26,11 +26,16 @@ function App() {
           cryp71c
         </h1>
         <p className="text-lg text-zinc-400">
-          Offensive Security Analyst | Backend Developer | Computer Engineer
+        Offensive Security Analyst | Backend Developer | Computer Engineer
         </p>
+
+        <p className="text-lg text-zinc-400">
+          I build things, break things, and occasionally discover those were the same step.
+        </p>
+
         <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
-          Systems programming in Rust and x86-64 assembly, hands-on security research, and real
-          hardware — dig into the write-ups, live demos, and projects below.
+          Mostly security research, low-level code, firmware, and questionable amounts of soldering.
+          The projects below are what survived long enough to get documented.
         </p>
 
         <div className="flex flex-wrap justify-center gap-4 max-w-xl mx-auto pt-2">

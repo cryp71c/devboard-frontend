@@ -102,10 +102,10 @@ function HTBDashboard() {
           <h1 className="text-5xl font-bold leading-[1.2] py-1 text-center mb-2 text-red-400">
             HTB Profile
           </h1>
-          <p className="text-center text-zinc-400 mb-1">Hack The Box account stats & selected write-ups</p>
+          <p className="text-center text-zinc-400 mb-1">Hack The Box account stats & every machine I've owned</p>
           {profile.profile_url && (
             <p className="text-center text-xs text-zinc-500 mb-8">
-              Career totals from my live{" "}
+              Synced live from my{" "}
               <a
                 href={profile.profile_url}
                 target="_blank"
@@ -114,7 +114,7 @@ function HTBDashboard() {
               >
                 HTB profile
               </a>{" "}
-              — the write-ups below are hand-picked, not every box I've completed.
+              — click a machine for the full write-up where one exists.
             </p>
           )}
 
@@ -152,7 +152,7 @@ function HTBDashboard() {
             </div>
           )}
 
-          <h2 className="text-2xl font-bold text-center mb-6 text-zinc-200">Featured Write-ups</h2>
+          <h2 className="text-2xl font-bold text-center mb-6 text-zinc-200">Machines</h2>
 
           {/* Difficulty Filters */}
           <div className="flex justify-center gap-3 mb-8 flex-wrap">

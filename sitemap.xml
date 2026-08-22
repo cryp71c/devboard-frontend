@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Static routes only — blog posts and HTB writeups are fetched from the API
+  at runtime, not known at build time, so they're not enumerated here.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://cryp71c.dev/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://cryp71c.dev/projects</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cryp71c.dev/blog</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cryp71c.dev/htb</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cryp71c.dev/credentials</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://cryp71c.dev/contact</loc>
+    <priority>0.5</priority>
+  </url>
+</urlset>

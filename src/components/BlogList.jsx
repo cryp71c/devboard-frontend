@@ -73,7 +73,15 @@ function BlogList() {
           <h1 className="text-5xl font-bold leading-[1.2] py-1 text-center mb-2 text-red-400">
             Blog
           </h1>
-          <p className="text-center text-zinc-400 mb-8">Technical writings, tutorials, and thoughts</p>
+          <p className="text-center text-zinc-400 mb-2">Technical writings, tutorials, and thoughts</p>
+          <p className="text-center mb-8">
+            <a
+              href={`https://${API_URL}/blog/rss.xml`}
+              className="text-xs text-zinc-500 hover:text-red-400 transition"
+            >
+              RSS feed →
+            </a>
+          </p>
 
           {/* Category Filters */}
           {posts.length > 0 && (

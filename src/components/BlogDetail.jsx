@@ -6,6 +6,8 @@ import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import { common } from "lowlight";
 import x86asm from "highlight.js/lib/languages/x86asm";
+import ViewCount from "./ViewCount";
+import { recordView } from "../utils/views";
 
 // highlight.js's "common" bundle doesn't include assembly, but two of the
 // three posts on this site are largely x86-64 assembly — register it
@@ -18,6 +20,7 @@ const highlightOptions = {
 function BlogDetail() {
   const { slug } = useParams();
   const [post, setPost] = useState(null);
+  const [views, setViews] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const API_URL = import.meta.env.VITE_API_URL;
@@ -25,6 +28,7 @@ function BlogDetail() {
   useEffect(() => {
     setLoading(true);
     setError(null);
+    setViews(null);
 
     fetch(`https://${API_URL}/blog/${slug}`)
       .then((res) => {
@@ -39,6 +43,9 @@ function BlogDetail() {
       .then((data) => {
         setPost(data);
         setLoading(false);
+        // Counted only once the post actually loaded, so a 404 or a failed
+        // request never registers as somebody reading something.
+        recordView("blog", slug).then((count) => setViews(count?.total_views ?? null));
       })
       .catch((err) => {
         console.error("Failed to load blog post:", err);
@@ -105,6 +112,7 @@ function BlogDetail() {
                     <span>Updated {new Date(post.last_updated).toLocaleDateString()}</span>
                   </>
                 )}
+                <ViewCount count={views} withSeparator />
               </div>
 
               {/* Tags */}

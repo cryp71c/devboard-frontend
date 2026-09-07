@@ -64,6 +64,13 @@ function Contact() {
           throw new Error("Too many submissions. Please try again later.");
         } else if (response.status === 400) {
           throw new Error(errorData.detail || "Invalid submission. Please check your input.");
+        } else if (response.status === 503) {
+          // The API couldn't store the message *or* email it, so it genuinely
+          // wasn't received - its detail names another way to get in touch,
+          // which is more use than a bare status code.
+          throw new Error(
+            errorData.detail || "Couldn't accept your message right now. Please try again later."
+          );
         }
 
         throw new Error(`Failed to submit: ${response.status}`);

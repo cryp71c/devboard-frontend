@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { recordView } from "../utils/views";
 
 const SELF_CHECK_EXPECTED = 0xe3069283;
 
@@ -67,6 +68,9 @@ export default function Crc32cDemo() {
   }, []);
 
   const startHash = (message) => {
+    // The one choke point for both hash-text and hash-file, so this counts
+    // "someone actually ran the demo" rather than "the card rendered".
+    recordView("project", "crc32c");
     setHashError(null);
     setResult(null);
     setHashing(true);

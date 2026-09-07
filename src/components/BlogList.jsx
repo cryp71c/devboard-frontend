@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { CATEGORIES, categoryBadgeClass } from "../utils/categories";
+import ViewCount from "./ViewCount";
+import { SHOW_VIEW_COUNTS, fetchViewCounts, findTrendingId } from "../utils/views";
 
 function BlogList() {
   const [posts, setPosts] = useState([]);
+  const [viewCounts, setViewCounts] = useState(null);
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -31,8 +34,18 @@ function BlogList() {
       });
   }, []);
 
+  // Skipped entirely when the counts aren't being shown — no point spending a
+  // request per visitor on a number nobody will see. The list page never
+  // *records* views either way; only opening a post counts as reading it.
+  useEffect(() => {
+    if (!SHOW_VIEW_COUNTS) return;
+    fetchViewCounts("blog").then(setViewCounts);
+  }, []);
+
   const filteredPosts =
     categoryFilter === "all" ? posts : posts.filter((post) => post.category === categoryFilter);
+
+  const trendingSlug = findTrendingId(viewCounts);
 
   return (
     <div className="relative min-h-screen bg-black text-white overflow-hidden">
@@ -150,6 +163,14 @@ function BlogList() {
                             ⭐ Featured
                           </span>
                         )}
+                        {/* Recent-reads leader, not all-time: "trending" that
+                            just meant "oldest post" would be useless. Only
+                            ever one post carries it. */}
+                        {post.slug === trendingSlug && (
+                          <span className="inline-block px-3 py-1 bg-orange-950/60 text-orange-300 border border-orange-700 rounded-sm text-xs font-semibold">
+                            🔥 Trending
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -185,6 +206,7 @@ function BlogList() {
                         <span>Updated {new Date(post.last_updated).toLocaleDateString()}</span>
                       </>
                     )}
+                    <ViewCount count={viewCounts?.[post.slug]?.total_views} withSeparator />
                   </div>
                 </article>
               ))}

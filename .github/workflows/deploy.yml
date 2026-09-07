@@ -27,6 +27,10 @@ jobs:
       - name: Build the project
         run: |
             echo "VITE_API_URL=${{ vars.VITE_API_URL }}" >> .env
+            # Set the repo variable to "true" to show view/interaction counts
+            # to visitors. Unset means counts are still recorded server-side,
+            # just not displayed. See src/utils/views.js.
+            echo "VITE_SHOW_VIEW_COUNTS=${{ vars.VITE_SHOW_VIEW_COUNTS }}" >> .env
             yarn build
 
 

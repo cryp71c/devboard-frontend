@@ -5,6 +5,8 @@ import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import { common } from "lowlight";
 import x86asm from "highlight.js/lib/languages/x86asm";
+import ViewCount from "./ViewCount";
+import { recordView } from "../utils/views";
 
 // highlight.js's "common" bundle doesn't include assembly; registered here
 // too in case a future writeup includes ```asm fences.
@@ -18,6 +20,7 @@ const STORAGE_KEY = "htb_writeup_key";
 function HTBWriteupDetail() {
   const { id } = useParams();
   const [machine, setMachine] = useState(null);
+  const [views, setViews] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [needsKey, setNeedsKey] = useState(false);
@@ -29,6 +32,7 @@ function HTBWriteupDetail() {
   const fetchWriteup = (accessKey) => {
     setLoading(true);
     setError(null);
+    setViews(null);
 
     fetch(`https://${API_URL}/htb/writeups/${id}`, {
       headers: accessKey ? { "X-Writeup-Key": accessKey } : {},
@@ -48,6 +52,9 @@ function HTBWriteupDetail() {
         setMachine(data);
         setNeedsKey(false);
         setLoading(false);
+        // Only reached once the writeup is actually readable — a locked
+        // machine bounces out above, so key prompts aren't counted as reads.
+        recordView("writeup", id).then((count) => setViews(count?.total_views ?? null));
       })
       .catch((err) => {
         console.error("Failed to load writeup:", err);
@@ -178,6 +185,7 @@ function HTBWriteupDetail() {
                     <span className="text-green-400">🔓 Unlocked</span>
                   </>
                 )}
+                <ViewCount count={views} withSeparator />
               </div>
 
               {machine.badge && (

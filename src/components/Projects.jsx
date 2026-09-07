@@ -2,6 +2,8 @@ import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { CATEGORIES, categoryBadgeClass } from "../utils/categories";
+import ViewCount from "./ViewCount";
+import { SHOW_VIEW_COUNTS, fetchViewCounts, recordView } from "../utils/views";
 
 // Lazy-loaded: pulls in a small WASM module. Kept out of the main bundle
 // the same way Projects itself is kept out of every other page's bundle.
@@ -27,6 +29,10 @@ function SpherePackingLazySection() {
         if (entry.isIntersecting) {
           setVisible(true);
           observer.disconnect();
+          // Counted as this card's interaction: it's the point where a
+          // visitor pulls down the ~890KB three.js chunk to actually run the
+          // viewer, which is the only "use it" action this card has.
+          recordView("project", "sphere-packing");
         }
       },
       { rootMargin: "200px" } // start loading slightly before it's on screen
@@ -76,10 +82,35 @@ const STATUS_STYLES = {
 const statusBadgeClass = (status) =>
   `px-3 py-1 rounded-sm text-xs font-semibold border whitespace-nowrap ${STATUS_STYLES[status]}`;
 
+// Counts *interactions*, not impressions: clicking through to a repo or its
+// write-up, loading the 3D viewer, or running the CRC32C demo. Scrolling past
+// a card isn't engagement, so it isn't counted.
+const trackProject = (key) => () => recordView("project", key);
+
+// Tallies for one card. Renders nothing unless public counts are enabled and
+// the card has actually been used, so it can be dropped into every card.
+function ProjectInteractions({ counts, projectKey }) {
+  return (
+    <ViewCount
+      count={counts?.[projectKey]?.total_views}
+      label="interaction"
+      className="block mt-4 text-xs text-zinc-500"
+    />
+  );
+}
+
 function Projects() {
   const [categoryFilter, setCategoryFilter] = useState("all");
+  const [counts, setCounts] = useState(null);
 
   const isVisible = (key) => categoryFilter === "all" || PROJECT_CATEGORIES[key] === categoryFilter;
+
+  // Interactions are always recorded; the read-back only happens when the
+  // numbers are going to be rendered.
+  useEffect(() => {
+    if (!SHOW_VIEW_COUNTS) return;
+    fetchViewCounts("project").then(setCounts);
+  }, []);
 
   return (
     <div className="min-h-screen bg-black text-white py-12 px-6">
@@ -120,6 +151,7 @@ function Projects() {
           >
             <Crc32cDemo />
           </Suspense>
+          <ProjectInteractions counts={counts} projectKey="crc32c" />
         </div>
       </div>
 
@@ -231,11 +263,13 @@ function Projects() {
                 href="https://github.com/cryp71c/mcp73831-lipo-charger-module"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={trackProject("lipo-charger")}
                 className="inline-block px-4 py-2 bg-zinc-800 border border-zinc-600 hover:bg-zinc-700 hover:border-red-600 rounded-lg text-sm font-medium transition"
               >
                 View on GitHub →
               </a>
             </div>
+            <ProjectInteractions counts={counts} projectKey="lipo-charger" />
           </div>
         </div>
         )}
@@ -268,7 +302,11 @@ function Projects() {
               <br />
               <br />
               Full write-up — the design, the SMHasher results, and exactly why it fails — is{" "}
-              <Link to="/blog/midnight-madness-64bit-hash" className="text-red-400 hover:underline">
+              <Link
+                to="/blog/midnight-madness-64bit-hash"
+                onClick={trackProject("midnight-madness")}
+                className="text-red-400 hover:underline"
+              >
                 on the blog
               </Link>.
             </p>
@@ -282,6 +320,7 @@ function Projects() {
                 </span>
               ))}
             </div>
+            <ProjectInteractions counts={counts} projectKey="midnight-madness" />
           </div>
         </div>
         )}
@@ -302,6 +341,7 @@ function Projects() {
           </div>
           <div className="p-6">
             <SpherePackingLazySection />
+            <ProjectInteractions counts={counts} projectKey="sphere-packing" />
           </div>
         </div>
         )}
@@ -365,11 +405,13 @@ function Projects() {
                 href="https://github.com/cryp71c/ruff"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={trackProject("ruff")}
                 className="inline-block px-4 py-2 bg-zinc-800 border border-zinc-600 hover:bg-zinc-700 hover:border-red-600 rounded-lg text-sm font-medium transition"
               >
                 View on GitHub →
               </a>
             </div>
+            <ProjectInteractions counts={counts} projectKey="ruff" />
           </div>
         </div>
         )}
@@ -400,11 +442,19 @@ function Projects() {
               <br />
               <br />
               Full write-up — architecture, on-disk layout, and the design decisions behind it — is{" "}
-              <Link to="/blog/mmfs-multimedia-file-system" className="text-red-400 hover:underline">
+              <Link
+                to="/blog/mmfs-multimedia-file-system"
+                onClick={trackProject("mmfs")}
+                className="text-red-400 hover:underline"
+              >
                 on the blog
               </Link>. I'm now rewriting the on-disk layer in Rust with hardware-accelerated CRC32C
               for fast corruption detection — that{" "}
-              <Link to="/blog/crc32c-from-scratch-rust-inline-assembly" className="text-red-400 hover:underline">
+              <Link
+                to="/blog/crc32c-from-scratch-rust-inline-assembly"
+                onClick={trackProject("mmfs")}
+                className="text-red-400 hover:underline"
+              >
                 write-up is here
               </Link>.
             </p>
@@ -418,6 +468,7 @@ function Projects() {
                 </span>
               ))}
             </div>
+            <ProjectInteractions counts={counts} projectKey="mmfs" />
           </div>
         </div>
         )}
@@ -451,8 +502,13 @@ function Projects() {
               <br />
               <br />
               Still in the design/research phase — no public demo yet. I'll post findings and a writeup
-              on the <Link to="/blog" className="text-red-400 hover:underline">blog</Link> as it develops.
+              on the{" "}
+              <Link to="/blog" onClick={trackProject("saml")} className="text-red-400 hover:underline">
+                blog
+              </Link>{" "}
+              as it develops.
             </p>
+            <ProjectInteractions counts={counts} projectKey="saml" />
           </div>
         </div>
         )}
